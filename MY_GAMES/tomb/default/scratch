@@ -1,0 +1,6 @@
+#!/bin/bash
+cd ../data && \
+../../../bin/gconvert tileset.xml && \
+cd ../default && \
+make clean && \
+make
