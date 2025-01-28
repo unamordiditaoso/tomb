@@ -1,0 +1,15 @@
+#include <stdint.h>
+#include <stdbool.h>
+#include <avr/io.h>
+#include <stdlib.h>
+#include <string.h>
+#include <avr/pgmspace.h>
+#include <uzebox.h>
+
+int main()
+{
+  for (;;) {
+    WaitVsync(1);
+  }
+}
+
