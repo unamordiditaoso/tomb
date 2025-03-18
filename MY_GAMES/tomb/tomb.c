@@ -42,10 +42,19 @@ typedef struct player
 	unsigned char POSx;
 	unsigned char POSy;
 	bool currentlymoving;
+	bool death;
 	char plydir;
 } player;
 
+typedef struct trampa
+{
+	unsigned char POSx;
+	unsigned char POSy;
+	bool kills;
+} trampa;
+
 player personaje;
+trampa trampa_prueba;
 
 int joy;
 
@@ -96,6 +105,22 @@ bool IsSolid(unsigned char t)
 	// if(t == walkabletiles[thiscounter]) { return false; }
 	//	}
 	return false;
+}
+
+bool comprobarTrampa()
+{
+	if (personaje.POSx == trampa_prueba.POSx && personaje.POSy == trampa_prueba.POSy){
+		return true;
+	}
+	return false;
+}
+
+void kill()
+{
+	personaje.POSx = PlayerPositionX;
+	personaje.POSy = PlayerPositionY;
+	personaje.currentlymoving = 0;
+	personaje.death = 1;
 }
 
 int calcMov(char direction)
@@ -188,7 +213,7 @@ void moveplayer(char direction, char numPix)
 		}
 	}
 
-	if (personaje.currentlymoving == 1)
+	if (personaje.currentlymoving == 1 && personaje.death == 0)
 	{
 		if (numPix == 8)
 		{
@@ -209,7 +234,9 @@ void moveplayer(char direction, char numPix)
 				personaje.POSx += numPix;
 			}
 		}
-
+		if (comprobarTrampa()){
+			kill();
+		}
 		WaitVsync(2);
 		MoveSprite(0, personaje.POSx, personaje.POSy, 1, 1);
 	}
@@ -229,6 +256,8 @@ int main()
 
 	personaje.POSx = PlayerPositionX;
 	personaje.POSy = PlayerPositionY;
+	trampa_prueba.POSx = 120;
+	trampa_prueba.POSy = 144;
 	MapSprite2(0, player_right, 0);
 	moveplayer(dirPLYRIGHT, 0);
 	for (;;)
@@ -237,21 +266,25 @@ int main()
 		joy = ReadJoypad(0); // Get the latest input from the gamepad.
 		if (joy & BTN_A)
 		{
+			// circulo
 			// a key
 		}
 
 		if (joy & BTN_B)
 		{
+			// triangulo
 			// s key
 		}
 
 		if (joy & BTN_Y)
 		{
+			// cuadrado
 			// z key
 		}
 
 		if (joy & BTN_X)
 		{
+			personaje.death = 0; // equis
 			// x key
 		}
 
@@ -267,6 +300,7 @@ int main()
 
 		if (joy & BTN_SELECT)
 		{
+			
 		}
 
 		if (joy & BTN_START)
@@ -274,7 +308,7 @@ int main()
 		}
 
 		if (joy & BTN_UP)
-		{
+		{	
 			if (personaje.plydir != dirPLYUP)
 			{
 				MapSprite2(0, player_up, 0);
