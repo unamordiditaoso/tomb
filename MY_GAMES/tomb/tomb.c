@@ -58,13 +58,13 @@ trampa trampa_prueba;
 
 int joy;
 
-unsigned char PlayerPositionX = 120;
-unsigned char PlayerPositionY = 128;
+unsigned char PlayerPositionX = 112;
+unsigned char PlayerPositionY = 112;
 
-unsigned char Lscreenboundry = 68;
-unsigned char Rscreenboundry = 164;
-unsigned char Uscreenboundry = 76;
-unsigned char Dscreenboundry = 144;
+unsigned char Lscreenboundry = 92;
+unsigned char Rscreenboundry = 132;
+unsigned char Uscreenboundry = 84;
+unsigned char Dscreenboundry = 128;
 
 unsigned char nexttiles(unsigned char direction)
 {
@@ -253,11 +253,12 @@ int main()
 	SetTileTable(tileset);
 	SetSpritesTileTable(tileset);
 	DrawMap2((SCREEN_TILES_H - MAP_TOMB_WIDTH) / 2, (SCREEN_TILES_V - MAP_TOMB_HEIGHT) / 2, map_tomb);
+	DrawMap2((SCREEN_TILES_H - MAP_TOMB_WIDTH + 6) / 2, (SCREEN_TILES_V - MAP_TOMB_HEIGHT - 8) / 2, tomb_primer_pasillo);
 
 	personaje.POSx = PlayerPositionX;
 	personaje.POSy = PlayerPositionY;
-	trampa_prueba.POSx = 120;
-	trampa_prueba.POSy = 144;
+	trampa_prueba.POSx = 112;
+	trampa_prueba.POSy = 128;
 	MapSprite2(0, player_right, 0);
 	moveplayer(dirPLYRIGHT, 0);
 	for (;;)
