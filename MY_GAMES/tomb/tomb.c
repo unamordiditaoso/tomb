@@ -31,6 +31,9 @@
 #define colcheckLEFT 2
 #define colcheckRIGHT 3
 
+#define filas 7
+#define columnas 7
+
 const char *directionframes[4] = {
 	player_up,
 	player_down,
@@ -55,6 +58,21 @@ typedef struct trampa
 
 player personaje;
 trampa trampa_prueba;
+
+int mapa[filas][columnas] = {
+	{X, X, 1, 0, 1, 1, 1},
+	{1, 1, 1, 0, 0, 0, 1},
+	{1, 0, 0, 0, 0, 0, 1},
+	{1, 0, 0, 0, 0, 0, 1},
+	{1, 0, 0, 0, 0, 0, 1},
+	{1, 0, 0, 0, 0, 0, 1},
+	{1, 1, 1, 1, 1, 1, 1}
+};
+
+int jugadorX = 1, jugadorY = 1;
+
+// Tengo que pasar de 0 a 84...
+// "Mover" el jugador por la matriz
 
 int joy;
 
