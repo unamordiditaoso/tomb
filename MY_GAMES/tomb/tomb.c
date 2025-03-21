@@ -31,8 +31,8 @@
 #define colcheckLEFT 2
 #define colcheckRIGHT 3
 
-#define filas 7
-#define columnas 7
+#define filas 9
+#define columnas 9
 
 const char *directionframes[4] = {
 	player_up,
@@ -44,6 +44,8 @@ typedef struct player
 {
 	unsigned char POSx;
 	unsigned char POSy;
+	char casillaX;
+	char casillaY;
 	bool currentlymoving;
 	bool death;
 	char plydir;
@@ -59,77 +61,29 @@ typedef struct trampa
 player personaje;
 trampa trampa_prueba;
 
-int mapa[filas][columnas] = {
-	{-1, -1, 1, 0, 1, 1, 1},
-	{1, 1, 1, 0, 0, 0, 1},
-	{1, 0, 0, 0, 0, 0, 1},
-	{1, 0, 0, 0, 0, 0, 1},
-	{1, 0, 0, 0, 0, 0, 1},
-	{1, 0, 0, 0, 0, 0, 1},
-	{1, 1, 1, 1, 1, 1, 1}
+char mapa[filas][columnas] = {
+	{2, 1, 1, 1, 1, 1, 1, 1, 1},
+	{2, 1, 0, 0, 0, 0, 0, 0, 1},
+	{2, 1, 0, 0, 0, 0, 0, 0, 1},
+	{1, 1, 0, 0, 0, 0, 0, 0, 1},
+	{5, 0, 0, 0, 0, 0, 0, 0, 1},
+	{1, 0, 0, 0, 0, 0, 0, 0, 1},
+	{1, 0, 0, 0, 0, 0, 0, 0, 1},
+	{1, 0, 0, 0, 0, 0, 0, 0, 1},
+	{1, 1, 1, 1, 1, 1, 1, 1, 1}
 };
 
-int jugadorX = 4, jugadorY = 4; // Siendo 0:0 la esquina superior izquierda
-
-// Tengo que pasar de 0 a 84 desde arriba y de 0 a 92 desde la izquierda
-// "Mover" el jugador por la matriz
+// Las filas son las posiciones y, las columnas son las posiciones x.
 
 int joy;
 
-unsigned char PlayerPositionX = 112;
-unsigned char PlayerPositionY = 112;
-
-unsigned char Lscreenboundry = 92;
-unsigned char Rscreenboundry = 132;
-unsigned char Uscreenboundry = 84;
-unsigned char Dscreenboundry = 128;
-
-unsigned char nexttiles(unsigned char direction)
+bool isSolid(char x, char y)
 {
-	// This function returns the tile number for the requested tiles based on direction.
-	// The second argument determines which of the 2 tiles will be returned.
-	// *** Might be able to pass the array as an argument instead of 'whichtile'.
-	// *** http://www.cplusplus.com/forum/beginner/56820/
-
-	unsigned char whattile = 0;
-
-	if (direction == colcheckUP)
-	{
-		whattile = GetTile(((personaje.POSx >> 3) + 0), ((personaje.POSy >> 3) - 1));
+	if (x < 0 || x >= filas || y < 0 || y >= columnas) {
+    	return true; // Pared o fuera del mapa
 	}
 
-	else if (direction == colcheckDOWN)
-	{
-		whattile = GetTile(((personaje.POSx >> 3) + 0), ((personaje.POSy >> 3) + 1));
-	}
-
-	else if (direction == colcheckLEFT)
-	{
-		whattile = GetTile(((personaje.POSx >> 3) - 1), ((personaje.POSy >> 3) + 0));
-	}
-
-	else if (direction == colcheckRIGHT)
-	{
-		whattile = GetTile(((personaje.POSx >> 3) + 1), ((personaje.POSy >> 3) + 0));
-	}
-
-	return whattile;
-}
-
-bool isSolid(int x, int y)
-{
-	if (x < 0) {
-		jugadorX = 0;
-		return true;
-	}
-	else if (y < 0) {
-		jugadorY = 0;
-		return true;
-	}
-
-	else if (mapa[x][y] == 0){
-		jugadorX = x;
-		jugadorY = y;
+	if (mapa[x][y] == 0){
 		return false;
 	} else {
 		return true;
@@ -146,96 +100,44 @@ bool comprobarTrampa()
 
 void kill()
 {
-	personaje.POSx = PlayerPositionX;
-	personaje.POSy = PlayerPositionY;
-	personaje.currentlymoving = 0;
+	personaje.POSx = 112;
+	personaje.POSy = 112;
+	personaje.casillaX = 4;
+	personaje.casillaY = 5;
 	personaje.death = 1;
-}
-
-int calcMov(char direction)
-{
-	if (direction == dirPLYUP)
-	{
-		return (personaje.POSy - Uscreenboundry) + 16;
-	}
-	else if (direction == dirPLYDOWN)
-	{
-		return (Dscreenboundry - personaje.POSy) + 16;
-	}
-	else if (direction == dirPLYLEFT)
-	{
-		return (personaje.POSx - Lscreenboundry) + 16;
-	}
-	else if (direction == dirPLYRIGHT)
-	{
-		return (Rscreenboundry - personaje.POSx) + 16;
-	}
-	
-	return 0;
+	MapSprite2(0, player_right, 0);
+	moveplayer(dirPLYRIGHT, 0);
+	WaitVsync(2);
+	MoveSprite(0, personaje.POSx, personaje.POSy, 1, 1);
 }
 
 void moveplayer(char direction, char numPix)
 {
-	// Get the tiles for the surrounding area.
-	// Check for screen boundaries.
-	// Change the map screen if the screen boundary has been reached.
-	// Check for solid tiles in the future position of the moving sprites.
-	// Change the movement state.
-	// If movement is still allowed then animate the walking frames and move Link.
-	// Reset moving flag.
+	char nuevaX = personaje.casillaX;
+	char nuevaY = personaje.casillaY;
 
-	unsigned char nexttilesUP[1] = {nexttiles(colcheckUP)};
-	unsigned char nexttilesDOWN[1] = {nexttiles(colcheckDOWN)};
-	unsigned char nexttilesLEFT[1] = {nexttiles(colcheckLEFT)};
-	unsigned char nexttilesRIGHT[1] = {nexttiles(colcheckRIGHT)};
-
-	int nuevaX = jugadorX;
-	int nuevaY = jugadorY;
-
-	// Change map on screen boundary, check for solid tiles.
-	if (direction == dirPLYUP)
-	{
-		nuevaY--;
-	}
-
-	else if (direction == dirPLYDOWN)
-	{
-		nuevaY++;
-	}
-
-	else if (direction == dirPLYLEFT)
-	{
-		nuevaX--;
-	}
-
-	else if (direction == dirPLYRIGHT)
-	{
-		nuevaX++;
-	}
-
-	if (!isSolid(nuevaX, nuevaY)){
-		personaje.currentlymoving = 1;
-	} else {
-		personaje.currentlymoving = 0;
-	}
-	if (personaje.currentlymoving == 1 && personaje.death == 0)
+	if (personaje.death == 0)
 	{
 		if (numPix == 8)
 		{
 			if (personaje.plydir == dirPLYUP)
 			{
+				personaje.casillaY--;
 				personaje.POSy -= numPix;
 			}
 			if (personaje.plydir == dirPLYDOWN)
 			{
+				personaje.casillaY++;
 				personaje.POSy += numPix;
 			}
 			if (personaje.plydir == dirPLYLEFT)
 			{
+				personaje.casillaX--;
 				personaje.POSx -= numPix;
 			}
 			if (personaje.plydir == dirPLYRIGHT)
 			{
+				personaje.casillaX++;
 				personaje.POSx += numPix;
 			}
 		}
@@ -249,25 +151,30 @@ void moveplayer(char direction, char numPix)
 
 int main()
 {
-	unsigned char i;
 	ClearVram();
 	SetTileTable(tileset);
 	SetSpritesTileTable(tileset);
 	DrawMap2((SCREEN_TILES_H - MAP_TOMB_WIDTH) / 2, (SCREEN_TILES_V - MAP_TOMB_HEIGHT) / 2, map_tomb);
 	DrawMap2((SCREEN_TILES_H - MAP_TOMB_WIDTH + 6) / 2, (SCREEN_TILES_V - MAP_TOMB_HEIGHT - 8) / 2, tomb_primer_pasillo);
+	//DrawMap2((SCREEN_TILES_H - MAP_TOMB_WIDTH + 2) / 2, (SCREEN_TILES_V - MAP_TOMB_HEIGHT + 3) / 2, trampa_down);
 
-	personaje.POSx = PlayerPositionX;
-	personaje.POSy = PlayerPositionY;
-	trampa_prueba.POSx = 112;
-	trampa_prueba.POSy = 128;
+	personaje.POSx = 112;
+	personaje.POSy = 112;
+	personaje.casillaX = 4;
+	personaje.casillaY = 5;
+	
+	//trampa_prueba.POSx = 88;
+	//trampa_prueba.POSy = 88;
 	MapSprite2(0, player_right, 0);
 	moveplayer(dirPLYRIGHT, 0);
+	personaje.death = 1;
 	for (;;)
 	{
 
 		joy = ReadJoypad(0); // Get the latest input from the gamepad.
 		if (joy & BTN_A)
 		{
+			kill();
 			// circulo
 			// a key
 		}
@@ -311,52 +218,49 @@ int main()
 
 		if (joy & BTN_UP)
 		{	
-			if (personaje.plydir != dirPLYUP)
+			MapSprite2(0, player_up, 0);
+			personaje.plydir = dirPLYUP;
+
+			while (!isSolid(personaje.casillaX, personaje.casillaY - 1))
 			{
-				MapSprite2(0, player_up, 0);
-				personaje.plydir = dirPLYUP;
-			}
-			for (i = 0; i < calcMov(personaje.plydir); i++)
-			{
+				if (personaje.death == 1) {break;}
 				moveplayer(personaje.plydir, 8);
 			};
 		}
 
 		else if (joy & BTN_DOWN)
 		{
-			if (personaje.plydir != dirPLYDOWN)
+			MapSprite2(0, player_down, 0);
+			personaje.plydir = dirPLYDOWN;
+
+			while (!isSolid(personaje.casillaX, personaje.casillaY + 1))
 			{
-				MapSprite2(0, player_down, 0);
-				personaje.plydir = dirPLYDOWN;
-			}
-			for (i = 0; i < calcMov(personaje.plydir); i++)
-			{
+				if (personaje.death == 1) {break;}
 				moveplayer(personaje.plydir, 8);
 			};
 		}
 
 		else if (joy & BTN_LEFT)
 		{
-			if (personaje.plydir != dirPLYLEFT)
+
+			MapSprite2(0, player_left, 0);
+			personaje.plydir = dirPLYLEFT;
+
+			while (!isSolid(personaje.casillaX - 1, personaje.casillaY))
 			{
-				MapSprite2(0, player_left, 0);
-				personaje.plydir = dirPLYLEFT;
-			}
-			for (i = 0; i < calcMov(personaje.plydir); i++)
-			{
+				if (personaje.death == 1) {break;}
 				moveplayer(personaje.plydir, 8);
 			};
 		}
 
 		else if (joy & BTN_RIGHT)
 		{
-			if (personaje.plydir != dirPLYRIGHT)
+			MapSprite2(0, player_right, 0);
+			personaje.plydir = dirPLYRIGHT;
+
+			while (!isSolid(personaje.casillaX + 1, personaje.casillaY))
 			{
-				MapSprite2(0, player_right, 0);
-				personaje.plydir = dirPLYRIGHT;
-			}
-			for (i = 0; i < calcMov(personaje.plydir); i++)
-			{
+				if (personaje.death == 1) {break;}
 				moveplayer(personaje.plydir, 8);
 			};
 		}
