@@ -60,7 +60,7 @@ player personaje;
 trampa trampa_prueba;
 
 int mapa[filas][columnas] = {
-	{X, X, 1, 0, 1, 1, 1},
+	{-1, -1, 1, 0, 1, 1, 1},
 	{1, 1, 1, 0, 0, 0, 1},
 	{1, 0, 0, 0, 0, 0, 1},
 	{1, 0, 0, 0, 0, 0, 1},
@@ -69,9 +69,9 @@ int mapa[filas][columnas] = {
 	{1, 1, 1, 1, 1, 1, 1}
 };
 
-int jugadorX = 1, jugadorY = 1;
+int jugadorX = 4, jugadorY = 4; // Siendo 0:0 la esquina superior izquierda
 
-// Tengo que pasar de 0 a 84...
+// Tengo que pasar de 0 a 84 desde arriba y de 0 a 92 desde la izquierda
 // "Mover" el jugador por la matriz
 
 int joy;
@@ -116,13 +116,24 @@ unsigned char nexttiles(unsigned char direction)
 	return whattile;
 }
 
-bool IsSolid(unsigned char t)
+bool isSolid(int x, int y)
 {
-	// Checks the tile number of the passed tile against a list of non-solid tiles.
-	// for(unsigned char thiscounter=0;thiscounter<walkabletilesSIZE;thiscounter++){
-	// if(t == walkabletiles[thiscounter]) { return false; }
-	//	}
-	return false;
+	if (x < 0) {
+		jugadorX = 0;
+		return true;
+	}
+	else if (y < 0) {
+		jugadorY = 0;
+		return true;
+	}
+
+	else if (mapa[x][y] == 0){
+		jugadorX = x;
+		jugadorY = y;
+		return false;
+	} else {
+		return true;
+	}
 }
 
 bool comprobarTrampa()
@@ -178,59 +189,35 @@ void moveplayer(char direction, char numPix)
 	unsigned char nexttilesLEFT[1] = {nexttiles(colcheckLEFT)};
 	unsigned char nexttilesRIGHT[1] = {nexttiles(colcheckRIGHT)};
 
+	int nuevaX = jugadorX;
+	int nuevaY = jugadorY;
+
 	// Change map on screen boundary, check for solid tiles.
 	if (direction == dirPLYUP)
 	{
-		if (personaje.POSy > Uscreenboundry && !IsSolid(nexttilesUP[0]))
-		{
-			personaje.currentlymoving = 1;
-			personaje.plydir = dirPLYUP;
-		}
-		else
-		{
-			personaje.currentlymoving = 0;
-		}
+		nuevaY--;
 	}
 
 	else if (direction == dirPLYDOWN)
 	{
-		if (personaje.POSy < Dscreenboundry && !IsSolid(nexttilesDOWN[0]))
-		{
-			personaje.currentlymoving = 1;
-			personaje.plydir = dirPLYDOWN;
-		}
-		else
-		{
-			personaje.currentlymoving = 0;
-		}
+		nuevaY++;
 	}
 
 	else if (direction == dirPLYLEFT)
 	{
-		if (personaje.POSx > Lscreenboundry && !IsSolid(nexttilesLEFT[0]))
-		{
-			personaje.currentlymoving = 1;
-			personaje.plydir = dirPLYLEFT;
-		}
-		else
-		{
-			personaje.currentlymoving = 0;
-		}
+		nuevaX--;
 	}
 
 	else if (direction == dirPLYRIGHT)
 	{
-		if (personaje.POSx < Rscreenboundry && !IsSolid(nexttilesRIGHT[0]))
-		{
-			personaje.currentlymoving = 1;
-			personaje.plydir = dirPLYRIGHT;
-		}
-		else
-		{
-			personaje.currentlymoving = 0;
-		}
+		nuevaX++;
 	}
 
+	if (!isSolid(nuevaX, nuevaY)){
+		personaje.currentlymoving = 1;
+	} else {
+		personaje.currentlymoving = 0;
+	}
 	if (personaje.currentlymoving == 1 && personaje.death == 0)
 	{
 		if (numPix == 8)
@@ -258,10 +245,6 @@ void moveplayer(char direction, char numPix)
 		WaitVsync(2);
 		MoveSprite(0, personaje.POSx, personaje.POSy, 1, 1);
 	}
-
-	//}
-	// g_Link.linkcurrentlymoving = 0;
-	// }
 }
 
 int main()
