@@ -4,8 +4,9 @@
   <output file="tileset.inc" remove-duplicate-tiles="true">
     <tiles var-name="tileset" />
     <maps pointers-size="8">
-      <map var-name="map_tomb" left="0" top="2" width="9" height="9" />
-      <map var-name="tomb_primer_pasillo" left="3" top="11" width="9" height="4" />
+      <map var-name="mapa1_sala1" left="0" top="2" width="9" height="9" />
+      <map var-name="mapa1_pasillo1" left="3" top="11" width="9" height="4" />
+      <map var-name="mapa1_sala2" left="9" top="1" width="11" height="8" />
       <map var-name="trampa_up" left="2" top="0" width="1" height="1" />
       <map var-name="trampa_down" left="3" top="1" width="1" height="1" />
       <map var-name="player_up" left="0" top="13" width="1" height="1" />

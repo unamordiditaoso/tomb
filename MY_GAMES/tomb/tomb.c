@@ -31,9 +31,6 @@
 #define colcheckLEFT 2
 #define colcheckRIGHT 3
 
-#define filas 9
-#define columnas 9
-
 const char *directionframes[4] = {
 	player_up,
 	player_down,
@@ -61,33 +58,60 @@ typedef struct trampa
 player personaje;
 trampa trampa_prueba;
 
-char mapa[filas][columnas] = {
-	{2, 1, 1, 1, 1, 1, 1, 1, 1},
-	{2, 1, 0, 0, 0, 0, 0, 0, 1},
-	{2, 1, 0, 0, 0, 0, 0, 0, 1},
-	{1, 1, 0, 0, 0, 0, 0, 0, 1},
-	{5, 0, 0, 0, 0, 0, 0, 0, 1},
-	{1, 0, 0, 0, 0, 0, 0, 0, 1},
-	{1, 0, 0, 0, 0, 0, 0, 0, 1},
-	{1, 0, 0, 0, 0, 0, 0, 0, 1},
-	{1, 1, 1, 1, 1, 1, 1, 1, 1}
+char contSala;
+
+char mapa1_1[13][12] = {
+	{2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1},
+	{2, 2, 2, 2, 2, 1, 0, 0, 0, 0, 0, 0, 1},
+	{2, 2, 2, 2, 2, 1, 0, 0, 0, 0, 0, 0, 1},
+	{1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1},
+	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+	{1, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1},
+	{1, 0, 1, 2, 1, 0, 0, 0, 0, 0, 0, 0, 1},
+	{1, 0, 1, 2, 1, 0, 0, 0, 0, 0, 0, 0, 1},
+	{1, 0, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+	{1, 0, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2},
+	{1, 5, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2},
+	{1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2},
 };
 
+char mapa1_2[11][11] = {
+	{2, 2, 2, 1, 8, 1, 2, 2, 1, 1, 1},
+	{2, 2, 2, 1, 0, 1, 2, 2, 1, 1, 1},
+	{1, 1, 1, 1, 0, 1, 2, 2, 1, 1, 1},
+	{1, 0, 0, 0, 0, 1, 2, 2, 1, 1, 1},
+	{1, 0, 0, 0, 0, 1, 2, 2, 1, 1, 1},
+	{1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1},
+	{1, 0, 0, 0, 0, 0, 0, 0, 0, 6, 1},
+	{1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1},
+	{1, 0, 0, 0, 0, 1, 2, 2, 2, 2, 1},
+	{1, 0, 0, 0, 0, 1, 2, 2, 2, 2, 1},
+	{1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 1},
+};
 // Las filas son las posiciones y, las columnas son las posiciones x.
 
 int joy;
 
 bool isSolid(char x, char y)
 {
-	if (x < 0 || x >= filas || y < 0 || y >= columnas) {
-    	return true; // Pared o fuera del mapa
+	char result;
+	if (contSala == 0){
+		result = mapa1_1[x][y];
+	} else if (contSala == 1) {
+		result = mapa1_2[x][y];
 	}
 
-	if (mapa[x][y] == 0){
+	if (result == 0){
 		return false;
-	} else {
-		return true;
-	}
+	} else if (result == 5){
+		moverCamara(true);
+		return false;
+	} else if (result == 6){
+		moverCamara(false);
+		return false;
+	} 
+	
+	return true;
 }
 
 bool comprobarTrampa()
@@ -98,17 +122,56 @@ bool comprobarTrampa()
 	return false;
 }
 
-void kill()
+void kill() 
 {
 	personaje.POSx = 112;
 	personaje.POSy = 112;
 	personaje.casillaX = 4;
-	personaje.casillaY = 5;
+	personaje.casillaY = 9;
 	personaje.death = 1;
+	contSala = 0;
+
+	ClearVram();
+	DrawMap2((SCREEN_TILES_H - MAPA1_SALA1_WIDTH) / 2, (SCREEN_TILES_V - MAPA1_SALA1_HEIGHT) / 2, mapa1_sala1);
+	DrawMap2((SCREEN_TILES_H - MAPA1_SALA1_WIDTH + 6) / 2, (SCREEN_TILES_V - MAPA1_SALA1_HEIGHT - 8) / 2, mapa1_pasillo1);
+	DrawMap2(14, -3, mapa1_sala2);
+
 	MapSprite2(0, player_right, 0);
 	moveplayer(dirPLYRIGHT, 0);
 	WaitVsync(2);
 	MoveSprite(0, personaje.POSx, personaje.POSy, 1, 1);
+}
+
+void moverCamara(bool avanza) 
+{
+	if (avanza) {
+		contSala++;
+	} else {
+		contSala--;
+	}
+
+	ClearVram();
+	
+	
+	if (contSala == 0) {
+		personaje.POSx = 160;
+		personaje.POSy = 48;
+		personaje.casillaX = 10;
+		personaje.casillaY = 1;
+		DrawMap2((SCREEN_TILES_H - MAPA1_SALA1_WIDTH) / 2, (SCREEN_TILES_V - MAPA1_SALA1_HEIGHT) / 2, mapa1_sala1);
+		DrawMap2((SCREEN_TILES_H - MAPA1_SALA1_WIDTH + 6) / 2, (SCREEN_TILES_V - MAPA1_SALA1_HEIGHT - 8) / 2, mapa1_pasillo1);
+		DrawMap2(14, -3, mapa1_sala2);
+	}
+	if (contSala == 1) {
+		personaje.POSx = 112;
+		personaje.POSy = 112;
+		personaje.casillaX = 5;
+		personaje.casillaY = 9;
+		DrawMap2(5, 17, mapa1_sala1);
+		DrawMap2(8, 13, mapa1_pasillo1);
+		DrawMap2(9, 5, mapa1_sala2);
+	}
+	
 }
 
 void moveplayer(char direction, char numPix)
@@ -154,14 +217,15 @@ int main()
 	ClearVram();
 	SetTileTable(tileset);
 	SetSpritesTileTable(tileset);
-	DrawMap2((SCREEN_TILES_H - MAP_TOMB_WIDTH) / 2, (SCREEN_TILES_V - MAP_TOMB_HEIGHT) / 2, map_tomb);
-	DrawMap2((SCREEN_TILES_H - MAP_TOMB_WIDTH + 6) / 2, (SCREEN_TILES_V - MAP_TOMB_HEIGHT - 8) / 2, tomb_primer_pasillo);
+	DrawMap2((SCREEN_TILES_H - MAPA1_SALA1_WIDTH) / 2, (SCREEN_TILES_V - MAPA1_SALA1_HEIGHT) / 2, mapa1_sala1);
+	DrawMap2((SCREEN_TILES_H - MAPA1_SALA1_WIDTH + 6) / 2, (SCREEN_TILES_V - MAPA1_SALA1_HEIGHT - 8) / 2, mapa1_pasillo1);
+	DrawMap2(14, -3, mapa1_sala2);
 	//DrawMap2((SCREEN_TILES_H - MAP_TOMB_WIDTH + 2) / 2, (SCREEN_TILES_V - MAP_TOMB_HEIGHT + 3) / 2, trampa_down);
 
 	personaje.POSx = 112;
 	personaje.POSy = 112;
 	personaje.casillaX = 4;
-	personaje.casillaY = 5;
+	personaje.casillaY = 9;
 	
 	//trampa_prueba.POSx = 88;
 	//trampa_prueba.POSy = 88;
