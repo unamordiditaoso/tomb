@@ -42,8 +42,7 @@ typedef struct player
 	unsigned char POSx;
 	unsigned char POSy;
 	char casillaX;
-	char casillaY;
-	bool currentlymoving;
+	char casillaY;	
 	bool death;
 	char plydir;
 } player;
@@ -75,8 +74,19 @@ char mapa1_1[13][12] = {
 	{1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2},
 };
 
-char mapa1_2[11][11] = {
-	{2, 2, 2, 1, 8, 1, 2, 2, 1, 1, 1},
+char mapa1_2[22][11] = {
+	{2, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2},
+	{1, 0, 0, 0, 0, 1, 1, 1, 1, 2, 2},
+	{1, 0, 0, 0, 0, 1, 1, 1, 1, 2, 2},
+	{1, 0, 0, 0, 0, 1, 1, 1, 1, 2, 2},
+	{1, 0, 0, 0, 0, 1, 1, 1, 1, 2, 2},
+	{1, 0, 0, 0, 0, 1, 1, 1, 1, 2, 2},
+	{1, 1, 1, 0, 1, 1, 1, 1, 1, 2, 2},
+	{2, 2, 1, 0, 1, 1, 1, 2, 1, 1, 1},
+	{2, 2, 1, 0, 1, 1, 1, 2, 1, 1, 1},
+	{2, 2, 1, 0, 5, 1, 2, 2, 1, 1, 1},
+	{2, 2, 2, 1, 0, 1, 1, 2, 1, 1, 1},
+	{2, 2, 2, 1, 0, 1, 2, 2, 1, 1, 1},
 	{2, 2, 2, 1, 0, 1, 2, 2, 1, 1, 1},
 	{1, 1, 1, 1, 0, 1, 2, 2, 1, 1, 1},
 	{1, 0, 0, 0, 0, 1, 2, 2, 1, 1, 1},
@@ -88,6 +98,7 @@ char mapa1_2[11][11] = {
 	{1, 0, 0, 0, 0, 1, 2, 2, 2, 2, 1},
 	{1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 1},
 };
+
 // Las filas son las posiciones y, las columnas son las posiciones x.
 
 int joy;
@@ -97,14 +108,16 @@ bool isSolid(char x, char y)
 	char result;
 	if (contSala == 0){
 		result = mapa1_1[x][y];
-	} else if (contSala == 1) {
+	} else if (contSala == 1 || contSala == 2) {
 		result = mapa1_2[x][y];
 	}
 
 	if (result == 0){
 		return false;
 	} else if (result == 5){
-		moverCamara(true);
+		if (contSala < 2) {
+			moverCamara(true);
+		}
 		return false;
 	} else if (result == 6){
 		moverCamara(false);
@@ -135,7 +148,8 @@ void kill()
 	DrawMap2((SCREEN_TILES_H - MAPA1_SALA1_WIDTH) / 2, (SCREEN_TILES_V - MAPA1_SALA1_HEIGHT) / 2, mapa1_sala1);
 	DrawMap2((SCREEN_TILES_H - MAPA1_SALA1_WIDTH + 6) / 2, (SCREEN_TILES_V - MAPA1_SALA1_HEIGHT - 8) / 2, mapa1_pasillo1);
 	DrawMap2(14, -3, mapa1_sala2);
-
+	DrawMap2(11, -1, mapa1_pasillo2);
+	DrawMap2(3, -3, mapa1_sala3);
 	MapSprite2(0, player_right, 0);
 	moveplayer(dirPLYRIGHT, 0);
 	WaitVsync(2);
@@ -155,23 +169,35 @@ void moverCamara(bool avanza)
 	
 	if (contSala == 0) {
 		personaje.POSx = 160;
-		personaje.POSy = 48;
+		personaje.POSy = 40;
 		personaje.casillaX = 10;
-		personaje.casillaY = 1;
+		personaje.casillaY = 0;
 		DrawMap2((SCREEN_TILES_H - MAPA1_SALA1_WIDTH) / 2, (SCREEN_TILES_V - MAPA1_SALA1_HEIGHT) / 2, mapa1_sala1);
 		DrawMap2((SCREEN_TILES_H - MAPA1_SALA1_WIDTH + 6) / 2, (SCREEN_TILES_V - MAPA1_SALA1_HEIGHT - 8) / 2, mapa1_pasillo1);
 		DrawMap2(14, -3, mapa1_sala2);
+		DrawMap2(11, -1, mapa1_pasillo2);
+		DrawMap2(3, -3, mapa1_sala3);
 	}
 	if (contSala == 1) {
 		personaje.POSx = 112;
-		personaje.POSy = 112;
-		personaje.casillaX = 5;
+		personaje.POSy = 120;
+		personaje.casillaX = 16;
 		personaje.casillaY = 9;
-		DrawMap2(5, 17, mapa1_sala1);
-		DrawMap2(8, 13, mapa1_pasillo1);
-		DrawMap2(9, 5, mapa1_sala2);
+		DrawMap2(5, 18, mapa1_sala1);
+		DrawMap2(8, 14, mapa1_pasillo1);
+		DrawMap2(9, 6, mapa1_sala2);
+		DrawMap2(6, 8, mapa1_pasillo2);
+		DrawMap2(0, 6, mapa1_sala3_2);
 	}
-	
+	if (contSala == 2) {
+		personaje.POSx = 136;
+		personaje.POSy = 112;
+		DrawMap2(14, 22, mapa1_sala1_2);
+		DrawMap2(17, 18, mapa1_pasillo1);
+		DrawMap2(18, 10, mapa1_sala2);
+		DrawMap2(15, 12, mapa1_pasillo2);
+		DrawMap2(7, 10, mapa1_sala3);
+	}
 }
 
 void moveplayer(char direction, char numPix)
@@ -220,15 +246,14 @@ int main()
 	DrawMap2((SCREEN_TILES_H - MAPA1_SALA1_WIDTH) / 2, (SCREEN_TILES_V - MAPA1_SALA1_HEIGHT) / 2, mapa1_sala1);
 	DrawMap2((SCREEN_TILES_H - MAPA1_SALA1_WIDTH + 6) / 2, (SCREEN_TILES_V - MAPA1_SALA1_HEIGHT - 8) / 2, mapa1_pasillo1);
 	DrawMap2(14, -3, mapa1_sala2);
-	//DrawMap2((SCREEN_TILES_H - MAP_TOMB_WIDTH + 2) / 2, (SCREEN_TILES_V - MAP_TOMB_HEIGHT + 3) / 2, trampa_down);
+	DrawMap2(11, -1, mapa1_pasillo2);
+	DrawMap2(3, -3, mapa1_sala3);
 
 	personaje.POSx = 112;
 	personaje.POSy = 112;
 	personaje.casillaX = 4;
 	personaje.casillaY = 9;
 	
-	//trampa_prueba.POSx = 88;
-	//trampa_prueba.POSy = 88;
 	MapSprite2(0, player_right, 0);
 	moveplayer(dirPLYRIGHT, 0);
 	personaje.death = 1;

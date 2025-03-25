@@ -7,12 +7,16 @@
       <map var-name="mapa1_sala1" left="0" top="2" width="9" height="9" />
       <map var-name="mapa1_pasillo1" left="3" top="11" width="9" height="4" />
       <map var-name="mapa1_sala2" left="9" top="1" width="11" height="8" />
+      <map var-name="mapa1_pasillo2" left="0" top="11" width="3" height="4" />
+      <map var-name="mapa1_sala3" left="12" top="9" width="8" height="6" />
+      <map var-name="mapa1_sala1_2" left="0" top="2" width="9" height="6" />
+      <map var-name="mapa1_sala3_2" left="14" top="9" width="6" height="6" />
       <map var-name="trampa_up" left="2" top="0" width="1" height="1" />
       <map var-name="trampa_down" left="3" top="1" width="1" height="1" />
-      <map var-name="player_up" left="0" top="13" width="1" height="1" />
-      <map var-name="player_down" left="1" top="13" width="1" height="1" />
-      <map var-name="player_right" left="1" top="12" width="1" height="1" />
-      <map var-name="player_left" left="0" top="12" width="1" height="1" />
+      <map var-name="player_up" left="4" top="1" width="1" height="1" />
+      <map var-name="player_down" left="5" top="1" width="1" height="1" />
+      <map var-name="player_right" left="5" top="0" width="1" height="1" />
+      <map var-name="player_left" left="4" top="0" width="1" height="1" />
     </maps>
   </output>
 </gfx-form>
