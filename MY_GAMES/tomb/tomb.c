@@ -86,13 +86,13 @@ char mapa1_2[22][11] = {
 	{2, 2, 1, 0, 1, 1, 1, 2, 1, 1, 1},
 	{2, 2, 1, 0, 5, 1, 2, 2, 1, 1, 1},
 	{2, 2, 2, 1, 0, 1, 1, 2, 1, 1, 1},
-	{2, 2, 2, 1, 0, 1, 2, 2, 1, 1, 1},
-	{2, 2, 2, 1, 0, 1, 2, 2, 1, 1, 1},
-	{1, 1, 1, 1, 0, 1, 2, 2, 1, 1, 1},
-	{1, 0, 0, 0, 0, 1, 2, 2, 1, 1, 1},
-	{1, 0, 0, 0, 0, 1, 2, 2, 1, 1, 1},
-	{1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1},
-	{1, 0, 0, 0, 0, 0, 0, 0, 0, 6, 1},
+	{2, 2, 2, 1, 0, 1, 2, 2, 1, 6, 1},
+	{2, 2, 2, 1, 0, 1, 2, 2, 1, 0, 1},
+	{1, 1, 1, 1, 0, 1, 2, 2, 1, 0, 1},
+	{1, 0, 0, 0, 0, 1, 2, 2, 1, 0, 1},
+	{1, 0, 0, 0, 0, 1, 2, 2, 1, 0, 1},
+	{1, 0, 0, 0, 0, 1, 1, 1, 1, 0, 1},
+	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
 	{1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1},
 	{1, 0, 0, 0, 0, 1, 2, 2, 2, 2, 1},
 	{1, 0, 0, 0, 0, 1, 2, 2, 2, 2, 1},
@@ -168,10 +168,10 @@ void moverCamara(bool avanza)
 	
 	
 	if (contSala == 0) {
-		personaje.POSx = 160;
-		personaje.POSy = 40;
-		personaje.casillaX = 10;
-		personaje.casillaY = 0;
+		personaje.POSx = 120;
+		personaje.POSy = 48;
+		personaje.casillaX = 5;
+		personaje.casillaY = 1;
 		DrawMap2((SCREEN_TILES_H - MAPA1_SALA1_WIDTH) / 2, (SCREEN_TILES_V - MAPA1_SALA1_HEIGHT) / 2, mapa1_sala1);
 		DrawMap2((SCREEN_TILES_H - MAPA1_SALA1_WIDTH + 6) / 2, (SCREEN_TILES_V - MAPA1_SALA1_HEIGHT - 8) / 2, mapa1_pasillo1);
 		DrawMap2(14, -3, mapa1_sala2);
