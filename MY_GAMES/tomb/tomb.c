@@ -46,6 +46,7 @@ typedef struct player
 player personaje;
 
 char contSala;
+char contNivel;
 
 char mapa1_1[15][15] = {
 	{2, 2, 2, 2, 2, 9, 1, 1, 1, 1, 1, 1, 8, 2, 2, 2},
@@ -62,6 +63,7 @@ char mapa1_1[15][15] = {
 	{1, 1, 7, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2},
 	{2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2},
 	{2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2},
+	{2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2},
 };
 
 // 0 --> Se puede caminar
@@ -74,6 +76,7 @@ char mapa1_1[15][15] = {
 // 7 --> Esquina Abajo Derecha
 // 8 --> Esquina Abajo Izquierda
 // 9 --> Esquina Arriba Izquierda
+// 10 --> Victoria // Salida
 
 char mapa1_2[15][15] = {
 	{2, 2, 3, 0, 3, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2},
@@ -99,12 +102,12 @@ char mapa1_3[10][10] = {
 	{3, 0, 0, 0, 0, 3, 2, 2, 2, 2},
 	{3, 0, 0, 0, 0, 3, 2, 2, 2, 2},
 	{3, 0, 0, 0, 0, 3, 2, 2, 2, 2},
-	{3, 0, 0, 0, 0, 3, 2, 2, 2, 2},
-	{3, 0, 0, 0, 0, 3, 2, 2, 2, 2},
+	{3, 0, 0, 0, 10, 3, 2, 2, 2, 2},
 	{4, 1, 8, 0, 9, 7, 2, 2, 2, 2},
 	{2, 2, 1, 0, 3, 2, 2, 2, 2, 2},
 	{2, 2, 1, 0, 4, 8, 2, 2, 2, 2}, 
 	{2, 2, 1, 0, 2, 3, 2, 2, 2, 2},
+	{2, 2, 1, 1, 0, 1, 2, 2, 2, 2},
 };
 //char mapa1_2[22][11] = {
 //	{1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2},
@@ -149,8 +152,10 @@ bool isSolid(char x, char y)
 		return false;
 	} else if (result == 2){
 		contSala--;
+		personaje.POSy = 88;
 		personaje.casillaX = 2;
 		personaje.casillaY = 4;
+		MoveSprite(0, personaje.POSx, personaje.POSy, 1, 1);
 	} 
 	else if (result == 5){
 		if (contSala < 2) {
@@ -160,7 +165,11 @@ bool isSolid(char x, char y)
 	} else if (result == 6){
 		moverCamara(false);
 		return false;
-	} 
+	} else if (result == 10) {
+		contNivel++;
+		kill();
+		return true;
+	}
 	
 	return true;
 }
@@ -184,9 +193,34 @@ void kill()
 
 	ClearVram();
 
-	cargarMapa2(3, -3);
+	cargarMapa2(4, -3);
 	cargarMapa(2, 10,-3);
 	cargarMapa(1, 10, 5);
+
+	DrawMap2(12, 26, level);
+
+	if (contNivel == 1){
+		DrawMap2(17, 26, uno);
+	} else if (contNivel == 2) {
+		DrawMap2(17, 26, dos);
+	} else if (contNivel == 3) {
+		DrawMap2(17, 26, dos);
+		DrawMap2(18, 26, tres);
+	} else if (contNivel == 4) {
+		DrawMap2(17, 26, cuatro);
+	} else if (contNivel == 5) {
+		DrawMap2(17, 26, cinco);
+	} else if (contNivel == 6) {
+		DrawMap2(17, 26, seis);
+	} else if (contNivel == 7) {
+		DrawMap2(17, 26, siete);
+	} else if (contNivel == 8) {
+		DrawMap2(17, 26, ocho);
+	} else if (contNivel == 9) {
+		DrawMap2(17, 26, nueve);
+	} else if (contNivel == 10) {
+		DrawMap2(17, 26, diez);
+	} 
 	
 	MapSprite2(0, player_right, 0);
 	moveplayer(dirPLYRIGHT, 0);
@@ -211,9 +245,34 @@ void moverCamara(bool avanza)
 		personaje.casillaX = 5;
 		personaje.casillaY = 1;
 
-		cargarMapa2(3, -3);
+		cargarMapa2(4, -3);
 		cargarMapa(2, 10,-3);
 		cargarMapa(1, 10, 5);
+		
+		DrawMap2(12, 26, level);
+
+		if (contNivel == 1){
+			DrawMap2(17, 26, uno);
+		} else if (contNivel == 2) {
+			DrawMap2(17, 26, dos);
+		} else if (contNivel == 3) {
+			DrawMap2(17, 26, dos);
+			DrawMap2(18, 26, tres);
+		} else if (contNivel == 4) {
+			DrawMap2(17, 26, cuatro);
+		} else if (contNivel == 5) {
+			DrawMap2(17, 26, cinco);
+		} else if (contNivel == 6) {
+			DrawMap2(17, 26, seis);
+		} else if (contNivel == 7) {
+			DrawMap2(17, 26, siete);
+		} else if (contNivel == 8) {
+			DrawMap2(17, 26, ocho);
+		} else if (contNivel == 9) {
+			DrawMap2(17, 26, nueve);
+		} else if (contNivel == 10) {
+			DrawMap2(17, 26, diez);
+		} 
 	}
 	if (contSala == 1) {
 		personaje.POSx = 112;
@@ -221,19 +280,70 @@ void moverCamara(bool avanza)
 		personaje.casillaX = 9;
 		personaje.casillaY = 9;
 
-		cargarMapa2(-2, 6);
+		cargarMapa2(-1, 6);
 		cargarMapa(2, 5, 6);
 		cargarMapa(1, 5, 14);
+
+		DrawMap2(12, 1, level);
+
+		if (contNivel == 1){
+			DrawMap2(17, 1, uno);
+		} else if (contNivel == 2) {
+			DrawMap2(17, 1, dos);
+		} else if (contNivel == 3) {
+			DrawMap2(17, 1, dos);
+			DrawMap2(18, 1, tres);
+		} else if (contNivel == 4) {
+			DrawMap2(17, 1, cuatro);
+		} else if (contNivel == 5) {
+			DrawMap2(17, 1, cinco);
+		} else if (contNivel == 6) {
+			DrawMap2(17, 1, seis);
+		} else if (contNivel == 7) {
+			DrawMap2(17, 1, siete);
+		} else if (contNivel == 8) {
+			DrawMap2(17, 1, ocho);
+		} else if (contNivel == 9) {
+			DrawMap2(17, 1, nueve);
+		} else if (contNivel == 10) {
+			DrawMap2(17, 1, diez);
+		}
 	}
 	if (contSala == 2) {
 		personaje.POSx = 128;
 		personaje.POSy = 96;
-		personaje.casillaX = 9;
+		personaje.casillaX = 8;
 		personaje.casillaY = 5;
 
-		cargarMapa2(7, 7);
+		cargarMapa2(8, 7);
 		cargarMapa(2, 14, 7);
 		cargarMapa(1, 14, 15);
+
+		DrawMap2(12, 1, level);
+
+		if (contNivel == 1){
+			DrawMap2(17, 1, uno);
+		} else if (contNivel == 2) {
+			DrawMap2(17, 1, dos);
+		} else if (contNivel == 3) {
+			DrawMap2(17, 1, dos);
+			DrawMap2(18, 1, tres);
+		} else if (contNivel == 4) {
+			DrawMap2(17, 1, cuatro);
+		} else if (contNivel == 5) {
+			DrawMap2(17, 1, cinco);
+		} else if (contNivel == 6) {
+			DrawMap2(17, 1, seis);
+		} else if (contNivel == 7) {
+			DrawMap2(17, 1, siete);
+		} else if (contNivel == 8) {
+			DrawMap2(17, 1, ocho);
+		} else if (contNivel == 9) {
+			DrawMap2(17, 1, nueve);
+		} else if (contNivel == 10) {
+			DrawMap2(17, 1, diez);
+		}
+
 	}
 }
 
@@ -283,6 +393,9 @@ void cargarMapa(int mapa, int x, int y){
 				valor = mapa1_2[a][b];
 			}
 			if(x+a >= 0 && y+b >= 0) {
+				if (valor == 0){
+					DrawMap2(a + x, b + y, suelo);
+				}
 				if (valor == 1){
 					DrawMap2(a + x, b + y, muroV);
 				}
@@ -300,6 +413,9 @@ void cargarMapa(int mapa, int x, int y){
 				}
 				if (valor == 9){
 					DrawMap2(a + x, b + y, esquinaNO);
+				}
+				if (valor == 10){
+					DrawMap2(a + x, b + y, victoriaD);
 				}
 			}
 		}
@@ -313,6 +429,9 @@ void cargarMapa2(int x, int y){
 			valor = mapa1_3[a][b];
 
 			if(x+a >= 0 && y+b >= 0) {	
+				if (valor == 0){
+					DrawMap2(a + x, b + y, suelo);
+				}
 				if (valor == 1){
 					DrawMap2(a + x, b + y, muroV);
 				}
@@ -331,6 +450,9 @@ void cargarMapa2(int x, int y){
 				if (valor == 9){
 					DrawMap2(a + x, b + y, esquinaNO);
 				}
+				if (valor == 10){
+					DrawMap2(a + x, b + y, victoriaD);
+				}
 			}
 		}
 	}
@@ -338,21 +460,11 @@ void cargarMapa2(int x, int y){
 
 int main()
 {
+	contNivel = 0;
+
 	ClearVram();
 	SetTileTable(tileset);
 	SetSpritesTileTable(tileset);
-
-	personaje.POSx = 112;
-	personaje.POSy = 112;
-	personaje.casillaX = 4;
-	personaje.casillaY = 9;
-	
-	MapSprite2(0, player_right, 0);
-	moveplayer(dirPLYRIGHT, 0);
-	
-	cargarMapa2(3, -3);
-	cargarMapa(2, 10,-3);
-	cargarMapa(1, 10, 5);
 
 	personaje.death = 1;
 	for (;;)
@@ -380,6 +492,26 @@ int main()
 
 		if (joy & BTN_X)
 		{
+			if (contNivel == 0){
+				contNivel++;
+				
+				personaje.POSx = 112;
+				personaje.POSy = 112;
+				personaje.casillaX = 4;
+				personaje.casillaY = 9;
+
+				MapSprite2(0, player_right, 0);
+				MoveSprite(0, personaje.POSx, personaje.POSy, 1, 1);
+				
+				cargarMapa2(4, -3);
+				cargarMapa(2, 10,-3);
+				cargarMapa(1, 10, 5);
+
+				DrawMap2(12, 26, level);
+				DrawMap2(17, 26, uno);
+
+				
+			}
 			personaje.death = 0; // equis
 			// x key
 		}
