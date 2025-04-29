@@ -26,10 +26,6 @@
 #define dirPLYDOWN 1
 #define dirPLYLEFT 2
 #define dirPLYRIGHT 3
-#define colcheckUP 0
-#define colcheckDOWN 1
-#define colcheckLEFT 2
-#define colcheckRIGHT 3
 
 const char *directionframes[4] = {
 	player_up,
@@ -47,58 +43,93 @@ typedef struct player
 	char plydir;
 } player;
 
-typedef struct trampa
-{
-	unsigned char POSx;
-	unsigned char POSy;
-	bool kills;
-} trampa;
-
 player personaje;
-trampa trampa_prueba;
 
 char contSala;
 
-char mapa1_1[13][12] = {
-	{2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1},
-	{2, 2, 2, 2, 2, 1, 0, 0, 0, 0, 0, 0, 1},
-	{2, 2, 2, 2, 2, 1, 0, 0, 0, 0, 0, 0, 1},
-	{1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1},
-	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-	{1, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1},
-	{1, 0, 1, 2, 1, 0, 0, 0, 0, 0, 0, 0, 1},
-	{1, 0, 1, 2, 1, 0, 0, 0, 0, 0, 0, 0, 1},
-	{1, 0, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-	{1, 0, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2},
-	{1, 5, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2},
-	{1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2},
+char mapa1_1[15][15] = {
+	{2, 2, 2, 2, 2, 9, 1, 1, 1, 1, 1, 1, 8, 2, 2, 2},
+	{2, 2, 2, 2, 2, 3, 0, 0, 0, 0, 0, 0, 3, 2, 2, 2},
+	{2, 2, 2, 2, 2, 3, 0, 0, 0, 0, 0, 0, 3, 2, 2, 2},
+	{9, 1, 1, 1, 1, 7, 0, 0, 0, 0, 0, 0, 3, 2, 2, 2},
+	{3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 2, 2, 2},
+	{3, 0, 9, 1, 8, 0, 0, 0, 0, 0, 0, 0, 3, 2, 2, 2},
+	{3, 0, 3, 2, 3, 0, 0, 0, 0, 0, 0, 0, 3, 2, 2, 2},
+	{3, 0, 3, 2, 3, 0, 0, 0, 0, 0, 0, 0, 3, 2, 2, 2},
+	{3, 0, 3, 2, 4, 1, 1, 1, 1, 1, 1, 1, 7, 2, 2, 2},
+	{7, 0, 3, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2},
+	{0, 5, 3, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2},
+	{1, 1, 7, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2},
+	{2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2},
+	{2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2},
 };
 
-char mapa1_2[22][11] = {
-	{2, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2},
-	{1, 0, 0, 0, 0, 1, 1, 1, 1, 2, 2},
-	{1, 0, 0, 0, 0, 1, 1, 1, 1, 2, 2},
-	{1, 0, 0, 0, 0, 1, 1, 1, 1, 2, 2},
-	{1, 0, 0, 0, 0, 1, 1, 1, 1, 2, 2},
-	{1, 0, 0, 0, 0, 1, 1, 1, 1, 2, 2},
-	{1, 1, 1, 0, 1, 1, 1, 1, 1, 2, 2},
-	{2, 2, 1, 0, 1, 1, 1, 2, 1, 1, 1},
-	{2, 2, 1, 0, 1, 1, 1, 2, 1, 1, 1},
-	{2, 2, 1, 0, 5, 1, 2, 2, 1, 1, 1},
-	{2, 2, 2, 1, 0, 1, 1, 2, 1, 1, 1},
-	{2, 2, 2, 1, 0, 1, 2, 2, 1, 6, 1},
-	{2, 2, 2, 1, 0, 1, 2, 2, 1, 0, 1},
-	{1, 1, 1, 1, 0, 1, 2, 2, 1, 0, 1},
-	{1, 0, 0, 0, 0, 1, 2, 2, 1, 0, 1},
-	{1, 0, 0, 0, 0, 1, 2, 2, 1, 0, 1},
-	{1, 0, 0, 0, 0, 1, 1, 1, 1, 0, 1},
-	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-	{1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1},
-	{1, 0, 0, 0, 0, 1, 2, 2, 2, 2, 1},
-	{1, 0, 0, 0, 0, 1, 2, 2, 2, 2, 1},
-	{1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 1},
+// 0 --> Se puede caminar
+// 1 --> Pared Vertical
+// 2 --> Vacio o Cambio de sala hacia abajo
+// 3 --> Pared Horizontal
+// 4 --> Esquina Arriba Derecha
+// 5 --> Avanzar Sala
+// 6 --> Retroceder Sala
+// 7 --> Esquina Abajo Derecha
+// 8 --> Esquina Abajo Izquierda
+// 9 --> Esquina Arriba Izquierda
+
+char mapa1_2[15][15] = {
+	{2, 2, 3, 0, 3, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2},
+	{2, 2, 3, 0, 4, 8, 2, 2, 2, 2, 2, 2, 2, 2, 2}, 
+	{2, 2, 3, 5, 0, 3, 2, 2, 2, 2, 2, 2, 2, 2, 2},
+	{2, 2, 4, 8, 0, 3, 2, 2, 1, 1, 1, 2, 2, 2, 2},
+	{2, 2, 2, 3, 0, 3, 2, 2, 1, 6, 0, 2, 2, 2, 2},
+	{2, 2, 2, 3, 0, 3, 2, 2, 1, 0, 1, 2, 2, 2, 2},
+	{9, 1, 1, 7, 0, 3, 2, 2, 1, 0, 1, 2, 2, 2, 2},
+	{3, 0, 0, 0, 0, 3, 2, 2, 1, 0, 1, 2, 2, 2, 2},
+	{3, 0, 0, 0, 0, 3, 2, 2, 1, 0, 1, 2, 2, 2, 2},
+	{3, 0, 0, 0, 0, 4, 1, 1, 1, 0, 1, 2, 2, 2, 2},
+	{3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 2, 2, 2},
+	{3, 0, 0, 0, 0, 9, 1, 1, 1, 1, 1, 2, 2, 2, 2},
+	{3, 0, 0, 0, 0, 3, 2, 2, 2, 2, 2, 2, 2, 2, 2},
+	{3, 0, 0, 0, 0, 3, 2, 2, 2, 2, 2, 2, 2, 2, 2},
+	{8, 1, 1, 1, 1, 7, 2, 2, 2, 2, 2, 2, 2, 2, 2},
 };
 
+// Necesito hacer cambio al mapa para que en la ultima linea no aparezca un 0.
+char mapa1_3[10][10] = {
+	{9, 1, 1, 1, 1, 8, 2, 2, 2, 2},
+	{3, 0, 0, 0, 0, 3, 2, 2, 2, 2},
+	{3, 0, 0, 0, 0, 3, 2, 2, 2, 2},
+	{3, 0, 0, 0, 0, 3, 2, 2, 2, 2},
+	{3, 0, 0, 0, 0, 3, 2, 2, 2, 2},
+	{3, 0, 0, 0, 0, 3, 2, 2, 2, 2},
+	{4, 1, 8, 0, 9, 7, 2, 2, 2, 2},
+	{2, 2, 1, 0, 3, 2, 2, 2, 2, 2},
+	{2, 2, 1, 0, 4, 8, 2, 2, 2, 2}, 
+	{2, 2, 1, 0, 2, 3, 2, 2, 2, 2},
+};
+//char mapa1_2[22][11] = {
+//	{1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2},
+//	{1, 0, 0, 0, 0, 1, 2, 2, 2, 2, 2},
+//	{1, 0, 0, 0, 0, 1, 2, 2, 2, 2, 2},
+//	{1, 0, 0, 0, 0, 1, 2, 2, 2, 2, 2},
+//	{1, 0, 0, 0, 0, 1, 2, 2, 2, 2, 2},
+//	{1, 0, 0, 0, 0, 1, 2, 2, 2, 2, 2},
+//	{1, 1, 1, 0, 1, 1, 2, 2, 2, 2, 2},
+//	{2, 2, 1, 0, 1, 2, 2, 2, 2, 2, 2},
+//	{2, 2, 1, 0, 1, 1, 2, 2, 2, 2, 2}, 
+//	{2, 2, 1, 0, 5, 1, 2, 2, 2, 2, 2},
+//	{2, 2, 1, 1, 0, 1, 2, 2, 1, 1, 1},
+//	{2, 2, 2, 1, 0, 1, 2, 2, 1, 6, 1},
+//	{2, 2, 2, 1, 0, 1, 2, 2, 1, 0, 1},
+//	{1, 1, 1, 1, 0, 1, 2, 2, 1, 0, 1},
+//	{1, 0, 0, 0, 0, 1, 2, 2, 1, 0, 1},
+//	{1, 0, 0, 0, 0, 1, 2, 2, 1, 0, 1},
+//	{1, 0, 0, 0, 0, 1, 1, 1, 1, 0, 1},
+//	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+//	{1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1},
+//	{1, 0, 0, 0, 0, 1, 2, 2, 2, 2, 2},
+//	{1, 0, 0, 0, 0, 1, 2, 2, 2, 2, 2},
+//	{1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2},
+//};
 // Las filas son las posiciones y, las columnas son las posiciones x.
 
 int joy;
@@ -108,13 +139,20 @@ bool isSolid(char x, char y)
 	char result;
 	if (contSala == 0){
 		result = mapa1_1[x][y];
-	} else if (contSala == 1 || contSala == 2) {
+	} else if (contSala == 1) {
 		result = mapa1_2[x][y];
+	} else if (contSala == 2){
+		result = mapa1_3[x][y];
 	}
 
 	if (result == 0){
 		return false;
-	} else if (result == 5){
+	} else if (result == 2){
+		contSala--;
+		personaje.casillaX = 2;
+		personaje.casillaY = 4;
+	} 
+	else if (result == 5){
 		if (contSala < 2) {
 			moverCamara(true);
 		}
@@ -129,9 +167,9 @@ bool isSolid(char x, char y)
 
 bool comprobarTrampa()
 {
-	if (personaje.POSx == trampa_prueba.POSx && personaje.POSy == trampa_prueba.POSy){
-		return true;
-	}
+	//if (){
+	//	return true;
+	//}
 	return false;
 }
 
@@ -145,11 +183,11 @@ void kill()
 	contSala = 0;
 
 	ClearVram();
-	DrawMap2((SCREEN_TILES_H - MAPA1_SALA1_WIDTH) / 2, (SCREEN_TILES_V - MAPA1_SALA1_HEIGHT) / 2, mapa1_sala1);
-	DrawMap2((SCREEN_TILES_H - MAPA1_SALA1_WIDTH + 6) / 2, (SCREEN_TILES_V - MAPA1_SALA1_HEIGHT - 8) / 2, mapa1_pasillo1);
-	DrawMap2(14, -3, mapa1_sala2);
-	DrawMap2(11, -1, mapa1_pasillo2);
-	DrawMap2(3, -3, mapa1_sala3);
+
+	cargarMapa2(3, -3);
+	cargarMapa(2, 10,-3);
+	cargarMapa(1, 10, 5);
+	
 	MapSprite2(0, player_right, 0);
 	moveplayer(dirPLYRIGHT, 0);
 	WaitVsync(2);
@@ -172,38 +210,35 @@ void moverCamara(bool avanza)
 		personaje.POSy = 48;
 		personaje.casillaX = 5;
 		personaje.casillaY = 1;
-		DrawMap2((SCREEN_TILES_H - MAPA1_SALA1_WIDTH) / 2, (SCREEN_TILES_V - MAPA1_SALA1_HEIGHT) / 2, mapa1_sala1);
-		DrawMap2((SCREEN_TILES_H - MAPA1_SALA1_WIDTH + 6) / 2, (SCREEN_TILES_V - MAPA1_SALA1_HEIGHT - 8) / 2, mapa1_pasillo1);
-		DrawMap2(14, -3, mapa1_sala2);
-		DrawMap2(11, -1, mapa1_pasillo2);
-		DrawMap2(3, -3, mapa1_sala3);
+
+		cargarMapa2(3, -3);
+		cargarMapa(2, 10,-3);
+		cargarMapa(1, 10, 5);
 	}
 	if (contSala == 1) {
 		personaje.POSx = 112;
 		personaje.POSy = 120;
-		personaje.casillaX = 16;
+		personaje.casillaX = 9;
 		personaje.casillaY = 9;
-		DrawMap2(5, 18, mapa1_sala1);
-		DrawMap2(8, 14, mapa1_pasillo1);
-		DrawMap2(9, 6, mapa1_sala2);
-		DrawMap2(6, 8, mapa1_pasillo2);
-		DrawMap2(0, 6, mapa1_sala3_2);
+
+		cargarMapa2(-2, 6);
+		cargarMapa(2, 5, 6);
+		cargarMapa(1, 5, 14);
 	}
 	if (contSala == 2) {
-		personaje.POSx = 136;
-		personaje.POSy = 112;
-		DrawMap2(14, 22, mapa1_sala1_2);
-		DrawMap2(17, 18, mapa1_pasillo1);
-		DrawMap2(18, 10, mapa1_sala2);
-		DrawMap2(15, 12, mapa1_pasillo2);
-		DrawMap2(7, 10, mapa1_sala3);
+		personaje.POSx = 128;
+		personaje.POSy = 96;
+		personaje.casillaX = 9;
+		personaje.casillaY = 5;
+
+		cargarMapa2(7, 7);
+		cargarMapa(2, 14, 7);
+		cargarMapa(1, 14, 15);
 	}
 }
 
 void moveplayer(char direction, char numPix)
 {
-	char nuevaX = personaje.casillaX;
-	char nuevaY = personaje.casillaY;
 
 	if (personaje.death == 0)
 	{
@@ -238,16 +273,74 @@ void moveplayer(char direction, char numPix)
 	}
 }
 
+void cargarMapa(int mapa, int x, int y){
+	char valor;
+	for(int a = 0; a < 15; a++){
+		for(int b = 0; b < 15; b++){
+			if (mapa == 1){
+				valor = mapa1_1[a][b];
+			} else if (mapa == 2) {
+				valor = mapa1_2[a][b];
+			}
+			if(x+a >= 0 && y+b >= 0) {
+				if (valor == 1){
+					DrawMap2(a + x, b + y, muroV);
+				}
+				if (valor == 3){
+					DrawMap2(a + x, b + y, muroH);
+				}
+				if (valor == 4){
+					DrawMap2(a + x, b + y, esquinaNE);
+				}
+				if (valor == 7){
+					DrawMap2(a + x, b + y, esquinaSE);
+				}
+				if (valor == 8){
+					DrawMap2(a + x, b + y, esquinaSO);
+				}
+				if (valor == 9){
+					DrawMap2(a + x, b + y, esquinaNO);
+				}
+			}
+		}
+	}
+}
+
+void cargarMapa2(int x, int y){
+	char valor;
+	for(int a = 0; a < 10; a++){
+		for(int b = 0; b < 10; b++){
+			valor = mapa1_3[a][b];
+
+			if(x+a >= 0 && y+b >= 0) {	
+				if (valor == 1){
+					DrawMap2(a + x, b + y, muroV);
+				}
+				if (valor == 3){
+					DrawMap2(a + x, b + y, muroH);
+				}
+				if (valor == 4){
+					DrawMap2(a + x, b + y, esquinaNE);
+				}
+				if (valor == 7){
+					DrawMap2(a + x, b + y, esquinaSE);
+				}
+				if (valor == 8){
+					DrawMap2(a + x, b + y, esquinaSO);
+				}
+				if (valor == 9){
+					DrawMap2(a + x, b + y, esquinaNO);
+				}
+			}
+		}
+	}
+}
+
 int main()
 {
 	ClearVram();
 	SetTileTable(tileset);
 	SetSpritesTileTable(tileset);
-	DrawMap2((SCREEN_TILES_H - MAPA1_SALA1_WIDTH) / 2, (SCREEN_TILES_V - MAPA1_SALA1_HEIGHT) / 2, mapa1_sala1);
-	DrawMap2((SCREEN_TILES_H - MAPA1_SALA1_WIDTH + 6) / 2, (SCREEN_TILES_V - MAPA1_SALA1_HEIGHT - 8) / 2, mapa1_pasillo1);
-	DrawMap2(14, -3, mapa1_sala2);
-	DrawMap2(11, -1, mapa1_pasillo2);
-	DrawMap2(3, -3, mapa1_sala3);
 
 	personaje.POSx = 112;
 	personaje.POSy = 112;
@@ -256,6 +349,11 @@ int main()
 	
 	MapSprite2(0, player_right, 0);
 	moveplayer(dirPLYRIGHT, 0);
+	
+	cargarMapa2(3, -3);
+	cargarMapa(2, 10,-3);
+	cargarMapa(1, 10, 5);
+
 	personaje.death = 1;
 	for (;;)
 	{
