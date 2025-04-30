@@ -48,22 +48,22 @@ player personaje;
 char contSala;
 char contNivel;
 
-char mapa1_1[15][15] = {
-	{2, 2, 2, 2, 2, 9, 1, 1, 1, 1, 1, 1, 8, 2, 2, 2},
-	{2, 2, 2, 2, 2, 3, 0, 0, 0, 0, 0, 0, 3, 2, 2, 2},
-	{2, 2, 2, 2, 2, 3, 0, 0, 0, 0, 0, 0, 3, 2, 2, 2},
-	{9, 1, 1, 1, 1, 7, 0, 0, 0, 0, 0, 0, 3, 2, 2, 2},
-	{3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 2, 2, 2},
-	{3, 0, 9, 1, 8, 0, 0, 0, 0, 0, 0, 0, 3, 2, 2, 2},
-	{3, 0, 3, 2, 3, 0, 0, 0, 0, 0, 0, 0, 3, 2, 2, 2},
-	{3, 0, 3, 2, 3, 0, 0, 0, 0, 0, 0, 0, 3, 2, 2, 2},
-	{3, 0, 3, 2, 4, 1, 1, 1, 1, 1, 1, 1, 7, 2, 2, 2},
-	{7, 0, 3, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2},
-	{0, 5, 3, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2},
-	{1, 1, 7, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2},
-	{2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2},
-	{2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2},
-	{2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2},
+const char mapa1_1[15][15] PROGMEM = {
+	{2, 2, 2, 2, 2, 9, 1, 1, 1, 1, 1, 1, 8, 2, 2},
+	{2, 2, 2, 2, 2, 3, 0, 0, 0, 0, 0, 0, 3, 2, 2},
+	{2, 2, 2, 2, 2, 3, 0, 0, 0, 0, 0, 0, 3, 2, 2},
+	{9, 1, 1, 1, 1, 7, 0, 0, 0, 0, 0, 0, 3, 2, 2},
+	{3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 2, 2},
+	{3, 0, 9, 1, 8, 0, 0, 0, 0, 0, 0, 0, 3, 2, 2},
+	{3, 0, 3, 2, 3, 0, 0, 0, 0, 0, 0, 0, 3, 2, 2},
+	{3, 0, 3, 2, 3, 0, 0, 0, 0, 0, 0, 0, 3, 2, 2},
+	{3, 0, 3, 2, 4, 1, 1, 1, 1, 1, 1, 1, 7, 2, 2},
+	{7, 0, 3, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2},
+	{0, 5, 3, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2},
+	{1, 1, 7, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2},
+	{2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2},
+	{2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2},
+	{2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2},
 };
 
 // 0 --> Se puede caminar
@@ -78,7 +78,7 @@ char mapa1_1[15][15] = {
 // 9 --> Esquina Arriba Izquierda
 // 10 --> Victoria // Salida
 
-char mapa1_2[15][15] = {
+const char mapa1_2[15][15] PROGMEM = {
 	{2, 2, 3, 0, 3, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2},
 	{2, 2, 3, 0, 4, 8, 2, 2, 2, 2, 2, 2, 2, 2, 2}, 
 	{2, 2, 3, 5, 0, 3, 2, 2, 2, 2, 2, 2, 2, 2, 2},
@@ -97,7 +97,7 @@ char mapa1_2[15][15] = {
 };
 
 // Necesito hacer cambio al mapa para que en la ultima linea no aparezca un 0.
-char mapa1_3[10][10] = {
+const char mapa1_3[10][10] PROGMEM = {
 	{9, 1, 1, 1, 1, 8, 2, 2, 2, 2},
 	{3, 0, 0, 0, 0, 3, 2, 2, 2, 2},
 	{3, 0, 0, 0, 0, 3, 2, 2, 2, 2},
@@ -109,31 +109,61 @@ char mapa1_3[10][10] = {
 	{2, 2, 1, 0, 2, 3, 2, 2, 2, 2},
 	{2, 2, 1, 1, 0, 1, 2, 2, 2, 2},
 };
-//char mapa1_2[22][11] = {
-//	{1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2},
-//	{1, 0, 0, 0, 0, 1, 2, 2, 2, 2, 2},
-//	{1, 0, 0, 0, 0, 1, 2, 2, 2, 2, 2},
-//	{1, 0, 0, 0, 0, 1, 2, 2, 2, 2, 2},
-//	{1, 0, 0, 0, 0, 1, 2, 2, 2, 2, 2},
-//	{1, 0, 0, 0, 0, 1, 2, 2, 2, 2, 2},
-//	{1, 1, 1, 0, 1, 1, 2, 2, 2, 2, 2},
-//	{2, 2, 1, 0, 1, 2, 2, 2, 2, 2, 2},
-//	{2, 2, 1, 0, 1, 1, 2, 2, 2, 2, 2}, 
-//	{2, 2, 1, 0, 5, 1, 2, 2, 2, 2, 2},
-//	{2, 2, 1, 1, 0, 1, 2, 2, 1, 1, 1},
-//	{2, 2, 2, 1, 0, 1, 2, 2, 1, 6, 1},
-//	{2, 2, 2, 1, 0, 1, 2, 2, 1, 0, 1},
-//	{1, 1, 1, 1, 0, 1, 2, 2, 1, 0, 1},
-//	{1, 0, 0, 0, 0, 1, 2, 2, 1, 0, 1},
-//	{1, 0, 0, 0, 0, 1, 2, 2, 1, 0, 1},
-//	{1, 0, 0, 0, 0, 1, 1, 1, 1, 0, 1},
-//	{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-//	{1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1},
-//	{1, 0, 0, 0, 0, 1, 2, 2, 2, 2, 2},
-//	{1, 0, 0, 0, 0, 1, 2, 2, 2, 2, 2},
-//	{1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2},
-//};
+
+const char mapa2_1[15][15] PROGMEM = {
+	{2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2},
+	{9, 1, 1, 1, 1, 1, 8, 2, 2, 2, 2, 2, 2, 2, 2},
+	{3, 0, 0, 0, 0, 0, 3, 2, 2, 2, 2, 2, 2, 2, 2},
+	{3, 0, 0, 0, 0, 0, 3, 2, 2, 2, 2, 2, 2, 2, 2},
+	{3, 0, 0, 0, 3, 0, 3, 2, 2, 2, 2, 2, 2, 2, 2},
+	{3, 0, 0, 0, 3, 0, 3, 2, 2, 2, 2, 2, 2, 2, 2},
+	{3, 0, 0, 0, 3, 0, 3, 2, 2, 2, 2, 2, 2, 2, 2},
+	{4, 1, 1, 0, 3, 1, 7, 2, 2, 2, 2, 2, 2, 2, 2},
+	{2, 3, 0, 0, 3, 2, 2, 9, 1, 1, 2, 2, 2, 2, 2},
+	{2, 3, 0, 1, 3, 8, 2, 3, 5, 0, 2, 2, 2, 2, 2},
+	{9, 7, 0, 0, 0, 4, 1, 7, 0, 9, 2, 2, 2, 2, 2},
+	{3, 0, 0, 0, 0, 0, 0, 0, 0, 3, 2, 2, 2, 2, 2},
+	{3, 0, 1, 0, 0, 9, 1, 1, 1, 7, 2, 2, 2, 2, 2},
+	{3, 0, 0, 0, 0, 3, 2, 2, 2, 2, 2, 2, 2, 2, 2},
+	{4, 1, 1, 1, 1, 7, 2, 2, 2, 2, 2, 2, 2, 2, 2},
+};
+
+const char mapa2_2[15][15] PROGMEM = {
+	{2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2},
+	{2, 2, 2, 2, 2, 2, 2, 2, 3, 2, 4, 1, 8, 2, 2},
+	{2, 2, 2, 2, 2, 2, 2, 2, 3, 5, 0, 0, 3, 2, 2},
+	{2, 2, 2, 2, 2, 2, 2, 2, 4, 1, 8, 0, 3, 2, 2},
+	{2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 0, 3, 2, 2},
+	{2, 2, 2, 2, 2, 2, 2, 2, 2, 9, 7, 0, 3, 2, 2},
+	{2, 2, 2, 2, 2, 1, 1, 1, 1, 7, 0, 0, 4, 8, 2},
+	{2, 2, 2, 2, 2, 1, 0, 0, 0, 0, 0, 0, 0, 3, 2},
+	{2, 2, 2, 2, 2, 1, 0, 1, 8, 0, 0, 0, 0, 3, 2},
+	{2, 2, 2, 2, 2, 1, 6, 3, 4, 8, 0, 0, 0, 3, 2},
+	{2, 2, 2, 2, 2, 1, 1, 1, 9, 7, 0, 0, 0, 3, 2},
+	{2, 2, 2, 2, 2, 2, 2, 2, 3, 0, 0, 1, 0, 3, 2},
+	{2, 2, 2, 2, 2, 2, 2, 2, 3, 0, 0, 0, 0, 3, 2},
+	{2, 2, 2, 2, 2, 2, 2, 2, 4, 1, 1, 1, 1, 7, 2},
+	{2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2},
+};
+
+const char mapa2_3[10][10] PROGMEM = {
+	{2, 2, 2, 2, 2, 2, 2, 2, 2, 2},
+	{2, 2, 2, 2, 9, 1, 1, 1, 8, 2},
+	{9, 1, 1, 1, 7, 0, 0, 0, 3, 2},
+	{3, 0, 0, 0, 0, 0, 10, 0, 3, 2},
+	{3, 0, 9, 1, 8, 0, 0, 0, 3, 2}, 
+	{3, 0, 3, 2, 4, 1, 1, 1, 7, 2},
+	{3, 0, 3, 2, 2, 2, 2, 2, 2, 2},
+	{3, 0, 1, 1, 2, 2, 2, 2, 2, 2},
+	{3, 0, 0, 6, 2, 2, 2, 2, 2, 2},
+	{4, 1, 1, 2, 2, 2, 2, 2, 2, 2},
+};
+
 // Las filas son las posiciones y, las columnas son las posiciones x.
+
+char mapa1[15][15];
+char mapa2[15][15];
+char mapa3[10][10];
 
 int joy;
 
@@ -141,33 +171,71 @@ bool isSolid(char x, char y)
 {
 	char result;
 	if (contSala == 0){
-		result = mapa1_1[x][y];
+		result = mapa1[x][y];
 	} else if (contSala == 1) {
-		result = mapa1_2[x][y];
+		result = mapa2[x][y];
 	} else if (contSala == 2){
-		result = mapa1_3[x][y];
+		result = mapa3[x][y];
 	}
 
 	if (result == 0){
 		return false;
 	} else if (result == 2){
 		contSala--;
-		personaje.POSy = 88;
-		personaje.casillaX = 2;
-		personaje.casillaY = 4;
-		MoveSprite(0, personaje.POSx, personaje.POSy, 1, 1);
+		
+		if(contNivel == 1){
+			personaje.POSy = 88;
+			personaje.casillaX = 2;
+			personaje.casillaY = 4;
+			MoveSprite(0, personaje.POSx, personaje.POSy, 1, 1);
+		}
+		
 	} 
 	else if (result == 5){
+		if (contNivel == 2) {
+			contSala++;
+
+			if(contSala == 1){
+				personaje.casillaX = 8;
+				personaje.casillaY = 6;
+			} else if(contSala == 2){
+				personaje.casillaX = 8;
+				personaje.casillaY = 2;
+			}
+
+			return false;
+		}
 		if (contSala < 2) {
 			moverCamara(true);
 		}
 		return false;
 	} else if (result == 6){
+
+		if (contNivel == 2) {
+			contSala--;
+
+			if(contSala == 0){
+				personaje.casillaX = 10;
+				personaje.casillaY = 8;
+			} else if(contSala == 1){
+				personaje.casillaX = 2;
+				personaje.casillaY = 10;
+			}
+
+			return false;
+		}
+
 		moverCamara(false);
 		return false;
 	} else if (result == 10) {
-		contNivel++;
+		
+		MapSprite2(0, vacio, 0);
+		MoveSprite(0, -1, -1, 1, 1);
+		ClearVram();
+		WaitVsync(30);
+		avanzaNivel();
 		kill();
+		
 		return true;
 	}
 	
@@ -182,26 +250,48 @@ bool comprobarTrampa()
 	return false;
 }
 
+void avanzaNivel(){
+	contNivel++;
+	contSala == 0;
+
+	if (contNivel == 2){
+		memcpy_P(mapa1, mapa2_1, sizeof(mapa1));
+		memcpy_P(mapa2, mapa2_2, sizeof(mapa2));
+		memcpy_P(mapa3, mapa2_3, sizeof(mapa3));
+	}
+}
+
 void kill() 
 {
-	personaje.POSx = 112;
-	personaje.POSy = 112;
-	personaje.casillaX = 4;
-	personaje.casillaY = 9;
-	personaje.death = 1;
 	contSala = 0;
 
 	ClearVram();
 
-	cargarMapa2(4, -3);
-	cargarMapa(2, 10,-3);
-	cargarMapa(1, 10, 5);
-
 	DrawMap2(12, 26, level);
 
 	if (contNivel == 1){
+		personaje.POSx = 112;
+		personaje.POSy = 112;
+		personaje.casillaX = 4;
+		personaje.casillaY = 9;
+		personaje.death = 1;
+
+		cargarMapa2(4, -3);
+		cargarMapa(2, 10,-3);
+		cargarMapa(1, 10, 5);
+
 		DrawMap2(17, 26, uno);
 	} else if (contNivel == 2) {
+
+		personaje.POSx = 112;
+		personaje.POSy = 88;
+		personaje.casillaX = 6;
+		personaje.casillaY = 5;
+
+		cargarMapa2(4, 16);
+		cargarMapa(2, 10, 8);
+		cargarMapa(1, 8, 6);
+
 		DrawMap2(17, 26, dos);
 	} else if (contNivel == 3) {
 		DrawMap2(17, 26, dos);
@@ -238,20 +328,19 @@ void moverCamara(bool avanza)
 
 	ClearVram();
 	
-	
 	if (contSala == 0) {
-		personaje.POSx = 120;
-		personaje.POSy = 48;
-		personaje.casillaX = 5;
-		personaje.casillaY = 1;
-
-		cargarMapa2(4, -3);
-		cargarMapa(2, 10,-3);
-		cargarMapa(1, 10, 5);
-		
 		DrawMap2(12, 26, level);
 
 		if (contNivel == 1){
+			personaje.POSx = 120;
+			personaje.POSy = 48;
+			personaje.casillaX = 5;
+			personaje.casillaY = 1;
+
+			cargarMapa2(4, -3);
+			cargarMapa(2, 10,-3);
+			cargarMapa(1, 10, 5);
+
 			DrawMap2(17, 26, uno);
 		} else if (contNivel == 2) {
 			DrawMap2(17, 26, dos);
@@ -275,18 +364,18 @@ void moverCamara(bool avanza)
 		} 
 	}
 	if (contSala == 1) {
-		personaje.POSx = 112;
-		personaje.POSy = 120;
-		personaje.casillaX = 9;
-		personaje.casillaY = 9;
-
-		cargarMapa2(-1, 6);
-		cargarMapa(2, 5, 6);
-		cargarMapa(1, 5, 14);
-
 		DrawMap2(12, 1, level);
 
 		if (contNivel == 1){
+			personaje.POSx = 112;
+			personaje.POSy = 120;
+			personaje.casillaX = 9;
+			personaje.casillaY = 9;
+
+			cargarMapa2(-1, 6);
+			cargarMapa(2, 5, 6);
+			cargarMapa(1, 5, 14);
+
 			DrawMap2(17, 1, uno);
 		} else if (contNivel == 2) {
 			DrawMap2(17, 1, dos);
@@ -310,18 +399,19 @@ void moverCamara(bool avanza)
 		}
 	}
 	if (contSala == 2) {
-		personaje.POSx = 128;
-		personaje.POSy = 96;
-		personaje.casillaX = 8;
-		personaje.casillaY = 5;
-
-		cargarMapa2(8, 7);
-		cargarMapa(2, 14, 7);
-		cargarMapa(1, 14, 15);
 
 		DrawMap2(12, 1, level);
 
 		if (contNivel == 1){
+			personaje.POSx = 128;
+			personaje.POSy = 96;
+			personaje.casillaX = 8;
+			personaje.casillaY = 5;
+
+			cargarMapa2(8, 7);
+			cargarMapa(2, 14, 7);
+			cargarMapa(1, 14, 15);
+
 			DrawMap2(17, 1, uno);
 		} else if (contNivel == 2) {
 			DrawMap2(17, 1, dos);
@@ -388,9 +478,9 @@ void cargarMapa(int mapa, int x, int y){
 	for(int a = 0; a < 15; a++){
 		for(int b = 0; b < 15; b++){
 			if (mapa == 1){
-				valor = mapa1_1[a][b];
+				valor = mapa1[a][b];
 			} else if (mapa == 2) {
-				valor = mapa1_2[a][b];
+				valor = mapa2[a][b];
 			}
 			if(x+a >= 0 && y+b >= 0) {
 				if (valor == 0){
@@ -426,7 +516,7 @@ void cargarMapa2(int x, int y){
 	char valor;
 	for(int a = 0; a < 10; a++){
 		for(int b = 0; b < 10; b++){
-			valor = mapa1_3[a][b];
+			valor = mapa3[a][b];
 
 			if(x+a >= 0 && y+b >= 0) {	
 				if (valor == 0){
@@ -499,6 +589,10 @@ int main()
 				personaje.POSy = 112;
 				personaje.casillaX = 4;
 				personaje.casillaY = 9;
+
+				memcpy_P(mapa1, mapa1_1, sizeof(mapa1));
+				memcpy_P(mapa2, mapa1_2, sizeof(mapa2));
+				memcpy_P(mapa3, mapa1_3, sizeof(mapa3));
 
 				MapSprite2(0, player_right, 0);
 				MoveSprite(0, personaje.POSx, personaje.POSy, 1, 1);

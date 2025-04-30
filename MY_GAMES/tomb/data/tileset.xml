@@ -4,6 +4,7 @@
   <output file="tileset.inc" remove-duplicate-tiles="true">
     <tiles var-name="tileset" />
     <maps pointers-size="8">
+      <map var-name="vacio" left="0" top="0" width="1" height="1" />
       <map var-name="trampa_up" left="2" top="0" width="1" height="1" />
       <map var-name="trampa_down" left="3" top="1" width="1" height="1" />
       <map var-name="player_up" left="4" top="1" width="1" height="1" />
