@@ -183,6 +183,42 @@ const char mapa3_2[15][15] PROGMEM = {
 	{02, 02, 02, 02, 02, 02, 02, 02, 02, 02, 02, 02, 02, 02, 02},
 };
 
+const char mapa4_1[15][15] PROGMEM = {
+	{02, 02, 02, 02, 02, 02, 02, 02, 02, 02, 02, 02, 02, 02, 02},
+	{02, 02, 02, 02, 02, 02, 15, 01, 01, 01, 01, 01, 01, 14, 02},
+	{02, 02, 02, 02, 02, 02, 03, 00, 00, 00, 00, 00, 00, 03, 02},
+	{02, 02, 02, 02, 02, 02, 03, 00, 00, 00, 15, 01, 00, 03, 02},
+	{02, 02, 02, 02, 15, 01, 04, 01, 01, 00, 03, 00, 00, 03, 02},
+	{02, 02, 02, 02, 03, 00, 00, 00, 00, 00, 04, 01, 01, 03, 02},
+	{02, 02, 02, 02, 03, 00, 03, 00, 00, 00, 00, 00, 00, 03, 02},
+	{02, 02, 02, 02, 03, 00, 03, 01, 01, 01, 01, 01, 01, 07, 02},
+	{02, 02, 15, 01, 07, 00, 04, 14, 02, 02, 02, 02, 02, 02, 02},
+	{02, 02, 03, 00, 00, 00, 00, 03, 02, 02, 02, 02, 02, 02, 02},
+	{02, 02, 03, 00, 00, 00, 00, 04, 01, 01, 01, 14, 02, 02, 02},
+	{02, 02, 03, 00, 00, 01, 00, 00, 00, 00, 00, 04, 01, 14, 02},
+	{02, 02, 03, 00, 00, 40, 00, 00, 15, 14, 00, 00, 05, 03, 02},
+	{02, 02, 04, 01, 01, 01, 01, 01, 07, 04, 01, 14, 00, 03, 02},
+	{02, 02, 02, 02, 02, 02, 02, 02, 02, 02, 02, 02, 02, 02, 02},
+};
+
+const char mapa4_2[15][15] PROGMEM = {
+	{02, 02, 02, 02, 02, 02, 02, 02, 02, 00, 00, 04, 01, 14, 02},
+	{02, 02, 02, 02, 02, 02, 02, 02, 02, 14, 06, 00, 00, 03, 02},
+	{02, 02, 02, 02, 02, 02, 02, 02, 02, 04, 01, 14, 00, 03, 02},
+	{02, 02, 15, 01, 01, 01, 01, 14, 02, 02, 02, 03, 00, 03, 02},
+	{02, 02, 03, 00, 00, 00, 00, 04, 14, 15, 01, 07, 00, 03, 02},
+	{02, 02, 03, 00, 01, 00, 00, 00, 03, 03, 00, 00, 00, 03, 02},
+	{02, 02, 03, 00, 00, 00, 00, 00, 04, 07, 00, 15, 01, 07, 02},
+	{02, 02, 03, 00, 00, 00, 00, 00, 00, 00, 00, 03, 02, 02, 02},
+	{02, 02, 03, 41, 00, 00, 00, 00, 15, 01, 01, 07, 02, 02, 02},
+	{02, 02, 03, 00, 00, 00, 00, 00, 03, 02, 02, 02, 02, 02, 02},
+	{02, 02, 04, 01, 14, 00, 15, 01, 07, 15, 01, 01, 01, 14, 02},
+	{02, 02, 02, 02, 03, 00, 03, 01, 01, 07, 00, 00, 00, 03, 02},
+	{02, 02, 02, 02, 03, 00, 03, 00, 00, 00, 00, 00, 00, 03, 02},
+	{02, 02, 02, 02, 03, 00, 00, 00, 15, 14, 30, 40, 00, 03, 02},
+	{02, 02, 02, 02, 04, 01, 01, 01, 07, 04, 01, 01, 01, 07, 02},
+};
+
 const char mapa0[15][15] PROGMEM = {
 	{02, 02, 02, 02, 02, 02, 02, 02, 02, 02, 02, 02, 02, 02, 02},
 	{02, 02, 02, 02, 02, 02, 02, 02, 02, 02, 02, 02, 02, 02, 02},
@@ -269,13 +305,21 @@ bool isSolid(char x, char y)
 		} else if (contNivel == 3){
 			contSala++;
 
-			if(contSala == 1){
-				personaje.casillaX = 1;
-				personaje.casillaY = 11;
-			} 
+			personaje.casillaX = 1;
+			personaje.casillaY = 11;
 
 			return false;
 		}
+
+		else if (contNivel == 4){
+			contSala++;
+
+			personaje.casillaX = 1;
+			personaje.casillaY = 11;
+
+			return false;
+		}
+
 		if (contSala < 2) {
 			moverCamara(true);
 		}
@@ -299,13 +343,21 @@ bool isSolid(char x, char y)
 		else if (contNivel == 3){
 			contSala--;
 
-			if(contSala == 0){
-				personaje.casillaX = 10;
-				personaje.casillaY = 6;
-			} 
+			personaje.casillaX = 10;
+			personaje.casillaY = 6;
 
 			return false;
 		}
+
+		else if (contNivel == 4){
+			contSala--;
+
+			personaje.casillaX = 12;
+			personaje.casillaY = 11;
+
+			return false;
+		}
+
 		moverCamara(false);
 		return false;
 	} else if (result / 3 == 10 ) {
@@ -345,6 +397,9 @@ void avanzaNivel(){
 	} else if (contNivel == 3) {
 		memcpy_P(mapa1, mapa3_1, sizeof(mapa1));
 		memcpy_P(mapa2, mapa3_2, sizeof(mapa2));
+	} else if (contNivel == 4) {
+		memcpy_P(mapa1, mapa4_1, sizeof(mapa1));
+		memcpy_P(mapa2, mapa4_2, sizeof(mapa2));
 	}
 }
 
@@ -394,6 +449,15 @@ void kill()
 		DrawMap2(17, 26, dos);
 		DrawMap2(18, 26, tres);
 	} else if (contNivel == 4) {
+
+		personaje.POSx = 48;
+		personaje.POSy = 136;
+		personaje.casillaX = 4;
+		personaje.casillaY = 11;
+
+		cargarMapa(2, 13, 6);
+		cargarMapa(1, 2, 6);
+
 		DrawMap2(17, 26, cuatro);
 	} else if (contNivel == 5) {
 		DrawMap2(17, 26, cinco);
@@ -610,6 +674,9 @@ void cargarMapa(int mapa, int x, int y){
 				if (valor == 40) {
 					DrawMap2(a + x, b + y, trampa_up);
 				}
+				if (valor == 41) {
+					DrawMap2(a + x, b + y, trampa_down);
+				}
 			}
 		}
 	}
@@ -651,6 +718,9 @@ void cargarMapa2(int x, int y){
 				}
 				if (valor == 40) {
 					DrawMap2(a + x, b + y, trampa_up);
+				}
+				if (valor == 41) {
+					DrawMap2(a + x, b + y, trampa_down);
 				}
 			}
 		}
