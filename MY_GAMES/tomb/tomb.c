@@ -48,6 +48,8 @@ player personaje;
 char contSala;
 char contNivel;
 
+bool dificultadExt;
+
 const char mapa1_1[15][15] PROGMEM = {
 	{01, 01, 01, 01, 01, 23, 10, 10, 10, 10, 10, 10, 24, 01, 01},
 	{01, 01, 01, 01, 01, 11, 00, 00, 00, 00, 00, 00, 11, 01, 01},
@@ -67,35 +69,21 @@ const char mapa1_1[15][15] PROGMEM = {
 };
 
 const char mapa1_2[15][15] PROGMEM = {
-	{01, 01, 11, 00, 11, 01, 01, 01, 01, 01, 01, 01, 01, 01, 01},
-	{01, 01, 11, 00, 21, 24, 01, 01, 01, 01, 01, 01, 01, 01, 01}, 
-	{01, 01, 11, 05, 00, 11, 01, 01, 01, 01, 01, 01, 01, 01, 01},
-	{01, 01, 21, 24, 00, 11, 01, 01, 10, 10, 10, 01, 01, 01, 01},
-	{01, 01, 01, 11, 00, 11, 01, 01, 10, 06, 00, 01, 01, 01, 01},
-	{01, 01, 01, 11, 00, 11, 01, 01, 10, 00, 10, 01, 01, 01, 01},
+	{23, 10, 10, 10, 10, 24, 01, 01, 01, 01, 01, 01, 01, 01, 01},
+	{11, 00, 00, 00, 00, 11, 01, 01, 01, 01, 01, 01, 01, 01, 01},
+	{11, 00, 00, 00, 00, 11, 01, 01, 01, 01, 01, 01, 01, 01, 01}, 
+	{11, 00, 00, 00, 30, 11, 01, 01, 01, 01, 01, 01, 01, 01, 01},
+	{21, 10, 24, 00, 23, 22, 01, 01, 10, 10, 10, 01, 01, 01, 01},
+	{01, 01, 11, 00, 21, 24, 01, 01, 10, 06, 00, 01, 01, 01, 01},
+	{01, 01, 11, 00, 00, 11, 01, 01, 10, 00, 10, 01, 01, 01, 01},
+	{01, 01, 21, 24, 00, 11, 01, 01, 10, 00, 10, 01, 01, 01, 01},
 	{23, 10, 10, 22, 00, 11, 01, 01, 10, 00, 10, 01, 01, 01, 01},
-	{11, 00, 00, 00, 00, 11, 01, 01, 10, 00, 10, 01, 01, 01, 01},
 	{11, 00, 00, 00, 00, 11, 01, 01, 10, 00, 10, 01, 01, 01, 01},
 	{11, 00, 00, 00, 00, 21, 10, 10, 10, 00, 10, 01, 01, 01, 01},
 	{11, 00, 00, 00, 00, 00, 00, 00, 00, 00, 10, 01, 01, 01, 01},
 	{11, 00, 00, 00, 00, 23, 10, 10, 10, 10, 10, 01, 01, 01, 01},
 	{11, 00, 00, 00, 00, 11, 01, 01, 01, 01, 01, 01, 01, 01, 01},
-	{11, 00, 00, 00, 00, 11, 01, 01, 01, 01, 01, 01, 01, 01, 01},
 	{24, 10, 10, 10, 10, 22, 01, 01, 01, 01, 01, 01, 01, 01, 01},
-};
-
-// Necesito hacer cambio al mapa para que en la ultima linea no aparezca un 0.
-const char mapa1_3[10][10] PROGMEM = {
-	{23, 10, 10, 10, 10, 24, 01, 01, 01, 01},
-	{11, 00, 00, 00, 00, 11, 01, 01, 01, 01},
-	{11, 00, 00, 00, 00, 11, 01, 01, 01, 01},
-	{11, 00, 00, 00, 00, 11, 01, 01, 01, 01},
-	{11, 00, 00, 00, 30, 11, 01, 01, 01, 01},
-	{21, 10, 24, 00, 23, 22, 01, 01, 01, 01},
-	{01, 01, 10, 00, 11, 01, 01, 01, 01, 01},
-	{01, 01, 10, 00, 21, 24, 01, 01, 01, 01}, 
-	{01, 01, 10, 00, 01, 11, 01, 01, 01, 01},
-	{01, 01, 10, 10, 00, 10, 01, 01, 01, 01},
 };
 
 const char mapa2_1[15][15] PROGMEM = {
@@ -404,21 +392,7 @@ const char mapa10_1[15][15] PROGMEM = {
 	{01, 21, 10, 10, 10, 10, 10, 10, 10, 10, 10, 22, 21, 10, 22},
 	{01, 01, 01, 01, 01, 01, 01, 01, 01, 01, 01, 01, 01, 01, 01},
 };
-// 10 --> Pared Vertical
-// 11 --> Pared Horizontal
-// 12 --> Pared Vertical que finaliza en la parte superior
-// 13 --> Pared Vertical que finaliza en la parte inferior
-// 14 --> Pared Horizontal que finaliza en la parte izquierda
-// 15 --> Pared Horizontal que finaliza en la parte derecha
-// 16 --> Bloque en T mirando hacia arriba
-// 17 --> Bloque en T mirando hacia abajo
-// 18 --> Bloque en T mirando hacia la izquierda
-// 19 --> Bloque en T mirando hacia la derecha
-// 20 --> Columna
-// 21 --> Esquina Arriba Derecha
-// 22 --> Esquina Abajo Derecha
-// 23 --> Esquina Arriba Izquierda
-// 24 --> Esquina Abajo Izquierda
+
 const char mapa10_2[15][15] PROGMEM = {
 	{01, 01, 01, 01, 01, 01, 01, 01, 01, 01, 01, 01, 01, 01, 01},
 	{01, 01, 23, 10, 10, 10, 10, 10, 19, 10, 10, 10, 10, 10, 24},
@@ -489,7 +463,6 @@ const char mapa0[15][15] PROGMEM = {
 
 char mapa1[15][15];
 char mapa2[15][15];
-char mapa3[10][10];
 
 int joy;
 
@@ -500,23 +473,12 @@ bool isSolid(char x, char y)
 		result = mapa1[x][y];
 	} else if (contSala == 1) {
 		result = mapa2[x][y];
-	} else if (contSala == 2){
-		result = mapa3[x][y];
 	}
 
 	if (result == 0){
 		return false;
-	} else if (result == 1){
-		contSala--;
-		
-		if(contNivel == 1){
-			personaje.POSy = 88;
-			personaje.casillaX = 2;
-			personaje.casillaY = 4;
-			MoveSprite(0, personaje.POSx, personaje.POSy, 1, 1);
-		}
-		
 	} 
+
 	else if (result == 5){
 		if (contNivel == 2) {
 			contSala++;
@@ -693,18 +655,16 @@ bool isSolid(char x, char y)
 		avanzaNivel(true);
 		return true;
 	} else if (result / 10 == 4) {
-		kill();
+		if (dificultadExt) {
+			contNivel = 0;
+			avanzaNivel(true);
+		}
+		else {
+			kill();
+		}
 	}
 	
 	return true;
-}
-
-bool comprobarTrampa()
-{
-	//if (){
-	//	return true;
-	//}
-	return false;
 }
 
 void avanzaNivel(bool avanza){
@@ -717,7 +677,6 @@ void avanzaNivel(bool avanza){
 	if(contNivel == 1){
 		memcpy_P(mapa1, mapa1_1, sizeof(mapa1));
 		memcpy_P(mapa2, mapa1_2, sizeof(mapa2));
-		memcpy_P(mapa3, mapa1_3, sizeof(mapa3));
 	}
 	else if (contNivel == 2){
 		memcpy_P(mapa1, mapa2_1, sizeof(mapa1));
@@ -773,8 +732,7 @@ void kill()
 		personaje.casillaY = 9;
 		personaje.death = 1;
 
-		cargarMapa2(4, -3);
-		cargarMapa(2, 10,-3);
+		cargarMapa(2, 9,-3);
 		cargarMapa(1, 10, 5);
 
 		DrawMap2(17, 26, uno);
@@ -899,8 +857,7 @@ void moverCamara(bool avanza)
 			personaje.casillaX = 5;
 			personaje.casillaY = 1;
 
-			cargarMapa2(4, -3);
-			cargarMapa(2, 10,-3);
+			cargarMapa(2, 9,-3);
 			cargarMapa(1, 10, 5);
 
 			DrawMap2(17, 26, uno);
@@ -929,13 +886,12 @@ void moverCamara(bool avanza)
 		DrawMap2(12, 1, level);
 
 		if (contNivel == 1){
-			personaje.POSx = 112;
+			personaje.POSx = 104;
 			personaje.POSy = 120;
 			personaje.casillaX = 9;
 			personaje.casillaY = 9;
 
-			cargarMapa2(-1, 6);
-			cargarMapa(2, 5, 6);
+			cargarMapa(2, 4, 6);
 			cargarMapa(1, 5, 14);
 
 			DrawMap2(17, 1, uno);
@@ -970,8 +926,7 @@ void moverCamara(bool avanza)
 			personaje.casillaX = 8;
 			personaje.casillaY = 5;
 
-			cargarMapa2(8, 7);
-			cargarMapa(2, 14, 7);
+			cargarMapa(2, 13, 7);
 			cargarMapa(1, 14, 15);
 
 			DrawMap2(17, 1, uno);
@@ -1027,9 +982,7 @@ void moveplayer(char direction, char numPix)
 				personaje.POSx += numPix;
 			}
 		}
-		if (comprobarTrampa()){
-			kill();
-		}
+
 		WaitVsync(2);
 		MoveSprite(0, personaje.POSx, personaje.POSy, 1, 1);
 	}
@@ -1111,58 +1064,16 @@ void cargarMapa(int mapa, int x, int y){
 	}
 }
 
-void cargarMapa2(int x, int y){
-	char valor;
-	for(int a = 0; a < 10; a++){
-		for(int b = 0; b < 10; b++){
-			valor = mapa3[a][b];
-
-			if(x+a >= 0 && y+b >= 0) {	
-				if (valor == 0){
-					DrawMap2(a + x, b + y, suelo);
-				}
-				if (valor == 10){
-					DrawMap2(a + x, b + y, muroV);
-				}
-				if (valor == 11){
-					DrawMap2(a + x, b + y, muroH);
-				}
-				if (valor == 21){
-					DrawMap2(a + x, b + y, esquinaNE);
-				}
-				if (valor == 22){
-					DrawMap2(a + x, b + y, esquinaSE);
-				}
-				if (valor == 23){
-					DrawMap2(a + x, b + y, esquinaNO);
-				}
-				if (valor == 24){
-					DrawMap2(a + x, b + y, esquinaSO);
-				}
-				if (valor == 30){
-					DrawMap2(a + x, b + y, victoriaD);
-				}
-				if (valor == 31){
-					DrawMap2(a + x, b + y, victoriaI);
-				}
-				if (valor == 40) {
-					DrawMap2(a + x, b + y, trampa_up);
-				}
-				if (valor == 41) {
-					DrawMap2(a + x, b + y, trampa_down);
-				}
-			}
-		}
-	}
-}
-
 int main()
 {
 	contNivel = 0;
+	dificultadExt = false;
 
 	ClearVram();
 	SetTileTable(tileset);
 	SetSpritesTileTable(tileset);
+
+	DrawMap2((SCREEN_TILES_H - PRESSX_WIDTH)/2, (SCREEN_TILES_V - PRESSX_HEIGHT)/2, pressX);
 
 	personaje.death = 1;
 	for (;;)
@@ -1190,31 +1101,11 @@ int main()
 
 		if (joy & BTN_X)
 		{
-			if (contNivel == 0){
-				contNivel++;
-				
-				personaje.POSx = 112;
-				personaje.POSy = 112;
-				personaje.casillaX = 4;
-				personaje.casillaY = 9;
-
-				memcpy_P(mapa1, mapa1_1, sizeof(mapa1));
-				memcpy_P(mapa2, mapa1_2, sizeof(mapa2));
-				memcpy_P(mapa3, mapa1_3, sizeof(mapa3));
-
-				MapSprite2(0, player_right, 0);
-				MoveSprite(0, personaje.POSx, personaje.POSy, 1, 1);
-				
-				cargarMapa2(4, -3);
-				cargarMapa(2, 10,-3);
-				cargarMapa(1, 10, 5);
-
-				DrawMap2(12, 26, level);
-				DrawMap2(17, 26, uno);
-
-				
+			if (contNivel == 0) {
+				avanzaNivel(true);
 			}
-			personaje.death = 0; 
+
+			personaje.death = 0;
 			// equis
 			// x key
 		}
@@ -1246,51 +1137,72 @@ int main()
 
 		if (joy & BTN_UP)
 		{	
-			MapSprite2(0, player_up, 0);
-			personaje.plydir = dirPLYUP;
+			if (contNivel > 0) {
+				MapSprite2(0, player_up, 0);
+				personaje.plydir = dirPLYUP;
 
-			while (!isSolid(personaje.casillaX, personaje.casillaY - 1))
-			{
-				if (personaje.death == 1) {break;}
-				moveplayer(personaje.plydir, 8);
-			};
+				while (!isSolid(personaje.casillaX, personaje.casillaY - 1))
+				{
+					if (personaje.death == 1) {break;}
+					moveplayer(personaje.plydir, 8);
+				};
+			}
+			
 		}
 
 		else if (joy & BTN_DOWN)
 		{
-			MapSprite2(0, player_down, 0);
-			personaje.plydir = dirPLYDOWN;
+			if (contNivel > 0) {
+				MapSprite2(0, player_down, 0);
+				personaje.plydir = dirPLYDOWN;
 
-			while (!isSolid(personaje.casillaX, personaje.casillaY + 1))
-			{
-				if (personaje.death == 1) {break;}
-				moveplayer(personaje.plydir, 8);
-			};
+				while (!isSolid(personaje.casillaX, personaje.casillaY + 1))
+				{
+					if (personaje.death == 1) {break;}
+					moveplayer(personaje.plydir, 8);
+				};
+			}
+			
 		}
 
 		else if (joy & BTN_LEFT)
 		{
+			if (contNivel == 0) {
+				if (dificultadExt){
+					dificultadExt = false;
+				}
+			}
+			else if (contNivel > 0) {
+				MapSprite2(0, player_left, 0);
+				personaje.plydir = dirPLYLEFT;
 
-			MapSprite2(0, player_left, 0);
-			personaje.plydir = dirPLYLEFT;
-
-			while (!isSolid(personaje.casillaX - 1, personaje.casillaY))
-			{
-				if (personaje.death == 1) {break;}
-				moveplayer(personaje.plydir, 8);
-			};
+				while (!isSolid(personaje.casillaX - 1, personaje.casillaY))
+				{
+					if (personaje.death == 1) {break;}
+					moveplayer(personaje.plydir, 8);
+				};
+			}
+			
 		}
 
 		else if (joy & BTN_RIGHT)
 		{
-			MapSprite2(0, player_right, 0);
-			personaje.plydir = dirPLYRIGHT;
+			if (contNivel == 0) {
+				if (!dificultadExt){
+					dificultadExt = true;
+				}
+			}
+			else if(contNivel > 0){
+				MapSprite2(0, player_right, 0);
+				personaje.plydir = dirPLYRIGHT;
 
-			while (!isSolid(personaje.casillaX + 1, personaje.casillaY))
-			{
-				if (personaje.death == 1) {break;}
-				moveplayer(personaje.plydir, 8);
-			};
+				while (!isSolid(personaje.casillaX + 1, personaje.casillaY))
+				{
+					if (personaje.death == 1) {break;}
+					moveplayer(personaje.plydir, 8);
+				};
+			}
+			
 		}
 		WaitVsync(1);
 	}

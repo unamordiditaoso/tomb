@@ -50,6 +50,8 @@
       
       <map var-name="victoriaD" left="6" top="0" width="1" height="1" />
       <map var-name="victoriaI" left="7" top="0" width="1" height="1" />
+    
+      <map var-name="pressX" left="0" top="10" width="7" height="1" />  
     </maps>
   </output>
 </gfx-form>
