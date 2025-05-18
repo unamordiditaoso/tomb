@@ -51,7 +51,20 @@
       <map var-name="victoriaD" left="6" top="0" width="1" height="1" />
       <map var-name="victoriaI" left="7" top="0" width="1" height="1" />
     
-      <map var-name="pressX" left="0" top="10" width="7" height="1" />  
+      <map var-name="piramideI" left="7" top="2" width="4" height="2" />
+      <map var-name="piramideD" left="13" top="2" width="2" height="2" /> 
+      <map var-name="piramide2x2" left="11" top="2" width="2" height="2" /> 
+      <map var-name="piramide1x2" left="12" top="2" width="1" height="2" /> 
+      <map var-name="piramidePunta" left="7" top="7" width="6" height="4" />
+
+      <map var-name="luna" left="10" top="4" width="3" height="3" />
+      <map var-name="estrella1" left="10" top="0" width="1" height="1" />
+      <map var-name="estrella2" left="11" top="0" width="1" height="1" />
+      <map var-name="estrella3" left="12" top="0" width="1" height="1" />
+
+      <map var-name="arena" left="4" top="2" width="2" height="2" />
+
+      <map var-name="pressX" left="0" top="10" width="7" height="1" /> 
     </maps>
   </output>
 </gfx-form>

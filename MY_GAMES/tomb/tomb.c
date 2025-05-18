@@ -1073,7 +1073,79 @@ int main()
 	SetTileTable(tileset);
 	SetSpritesTileTable(tileset);
 
-	DrawMap2((SCREEN_TILES_H - PRESSX_WIDTH)/2, (SCREEN_TILES_V - PRESSX_HEIGHT)/2, pressX);
+
+	// Pantalla 26(27)x30(31) o 28x28
+	DrawMap2(4, 20, piramideI);
+	DrawMap2(5, 18, piramideI);
+	DrawMap2(6, 16, piramideI);
+	DrawMap2(7, 14, piramideI);
+	DrawMap2(8, 12, piramideI);
+	DrawMap2(9, 10, piramideI);
+	DrawMap2(10, 8, piramideI);
+	DrawMap2(11, 6, piramideI);
+
+	for (int i = 7; i < 25; i = i + 2) {
+		DrawMap2(i, 20, piramide2x2);
+	}
+	for (int i = 8; i < 24; i = i + 2) {
+		DrawMap2(i, 18, piramide2x2);
+	}
+	for (int i = 9; i < 23; i = i + 2) {
+		DrawMap2(i, 16, piramide2x2);
+	}
+	for (int i = 10; i < 22; i = i + 2) {
+		DrawMap2(i, 14, piramide2x2);
+	}
+	for (int i = 11; i < 21; i = i + 2) {
+		DrawMap2(i, 12, piramide2x2);
+	}
+	for (int i = 12; i < 20; i = i + 2) {
+		DrawMap2(i, 10, piramide2x2);
+	}
+	for (int i = 13; i < 19; i = i + 2) {
+		DrawMap2(i, 8, piramide2x2);
+	}
+	for (int i = 14; i < 18; i = i + 2) {
+		DrawMap2(i, 6, piramide2x2);
+	}
+
+	DrawMap2(12, 2, piramidePunta);
+	DrawMap2(17, 6, piramideD);
+	DrawMap2(18, 8, piramideD);
+	DrawMap2(19, 10, piramideD);
+	DrawMap2(20, 12, piramideD);
+	DrawMap2(21, 14, piramideD);
+	DrawMap2(22, 16, piramideD);
+	DrawMap2(23, 18, piramideD);
+	DrawMap2(24, 20, piramideD);
+
+	DrawMap2(20, 2, luna);
+	DrawMap2(1, 2, estrella1);
+	DrawMap2(4, 5, estrella1);
+	DrawMap2(20, 8, estrella1);
+	DrawMap2(8, 9, estrella1);
+	DrawMap2(26, 10, estrella1);
+	DrawMap2(2, 13, estrella2);
+	DrawMap2(7, 4, estrella2);
+	DrawMap2(27, 20, estrella2);
+	DrawMap2(21, 5, estrella2);
+	DrawMap2(24, 14, estrella2);
+	DrawMap2(3, 18, estrella3);
+	DrawMap2(5, 10, estrella3);
+	DrawMap2(23, 12, estrella3);
+	DrawMap2(25, 3, estrella3);
+
+	for (int i = 0; i < 30; i = i + 2) {
+		DrawMap2(i, 22, arena);
+	}
+	for (int i = 0; i < 30; i = i + 2) {
+		DrawMap2(i, 24, arena);
+	}
+	for (int i = 0; i < 30; i = i + 2) {
+		DrawMap2(i, 26, arena);
+	}
+
+	DrawMap2((SCREEN_TILES_H - PRESSX_WIDTH)/2, (SCREEN_TILES_V - PRESSX_HEIGHT)/2 + 12, pressX);
 
 	personaje.death = 1;
 	for (;;)
