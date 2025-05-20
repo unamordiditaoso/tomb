@@ -1145,7 +1145,12 @@ int main()
 		DrawMap2(i, 26, arena);
 	}
 
-	DrawMap2((SCREEN_TILES_H - PRESSX_WIDTH)/2, (SCREEN_TILES_V - PRESSX_HEIGHT)/2 + 12, pressX);
+	DrawMap2(23, 19, bandera);
+
+	DrawMap2((SCREEN_TILES_H - OSIRISLORDOFSILENCE_WIDTH)/2 + 1, (SCREEN_TILES_V - OSIRISLORDOFSILENCE_HEIGHT)/2 + 3, osirisLordOfSilence);
+	DrawMap2((SCREEN_TILES_H - PRESSX_WIDTH)/2, (SCREEN_TILES_V - PRESSX_HEIGHT)/2 + 10, pressX);
+	DrawMap2((SCREEN_TILES_H - AUTHOR_WIDTH)/2, (SCREEN_TILES_V - AUTHOR_HEIGHT)/2 + 13, author);
+	DrawMap2(14, 25, virguilla);
 
 	personaje.death = 1;
 	for (;;)
@@ -1154,7 +1159,9 @@ int main()
 		joy = ReadJoypad(0); // Get the latest input from the gamepad.
 		if (joy & BTN_A)
 		{
-			kill();
+			if (contNivel > 0 && contNivel <= 10){
+				kill();
+			}
 			// circulo
 			// a key
 		}
@@ -1241,6 +1248,7 @@ int main()
 		{
 			if (contNivel == 0) {
 				if (dificultadExt){
+					DrawMap2(15, 2, piramidePuntaAmarilla);
 					dificultadExt = false;
 				}
 			}
@@ -1261,6 +1269,7 @@ int main()
 		{
 			if (contNivel == 0) {
 				if (!dificultadExt){
+					DrawMap2(15, 2, piramidePuntaRoja);
 					dificultadExt = true;
 				}
 			}
