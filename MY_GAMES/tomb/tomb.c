@@ -650,9 +650,14 @@ bool isSolid(char x, char y)
 		return false;
 	} else if (result / 3 == 10 ) {
 		if (contNivel == 10){
-			contNivel = 0;
+			contNivel++;
+			ClearVram();
+			cargarPantallaPrincipal();
+			MapSprite2(0, vacio, 0);
+			MoveSprite(0, -1, -1, 1, 1);
+		} else if (contNivel < 10){
+			avanzaNivel(true);
 		}
-		avanzaNivel(true);
 		return true;
 	} else if (result / 10 == 4) {
 		if (dificultadExt) {
@@ -1064,17 +1069,8 @@ void cargarMapa(int mapa, int x, int y){
 	}
 }
 
-int main()
-{
-	contNivel = 0;
-	dificultadExt = false;
+void cargarPantallaPrincipal() {
 
-	ClearVram();
-	SetTileTable(tileset);
-	SetSpritesTileTable(tileset);
-
-
-	// Pantalla 26(27)x30(31) o 28x28
 	DrawMap2(4, 20, piramideI);
 	DrawMap2(5, 18, piramideI);
 	DrawMap2(6, 16, piramideI);
@@ -1145,12 +1141,34 @@ int main()
 		DrawMap2(i, 26, arena);
 	}
 
-	DrawMap2(23, 19, bandera);
-
+	
 	DrawMap2((SCREEN_TILES_H - OSIRISLORDOFSILENCE_WIDTH)/2 + 1, (SCREEN_TILES_V - OSIRISLORDOFSILENCE_HEIGHT)/2 + 3, osirisLordOfSilence);
-	DrawMap2((SCREEN_TILES_H - PRESSX_WIDTH)/2, (SCREEN_TILES_V - PRESSX_HEIGHT)/2 + 10, pressX);
 	DrawMap2((SCREEN_TILES_H - AUTHOR_WIDTH)/2, (SCREEN_TILES_V - AUTHOR_HEIGHT)/2 + 13, author);
 	DrawMap2(14, 25, virguilla);
+
+	if (dificultadExt) {
+		DrawMap2(15, 2, piramidePuntaRoja);
+	} else {
+		DrawMap2(15, 2, piramidePuntaAmarilla);
+	}
+
+	if (contNivel == 0) {
+		DrawMap2((SCREEN_TILES_H - PRESSX_WIDTH)/2, (SCREEN_TILES_V - PRESSX_HEIGHT)/2 + 10, pressX);
+	} else if (contNivel == 11) {
+		DrawMap2(23, 19, bandera);
+	}
+}
+
+int main()
+{
+	contNivel = 0;
+	dificultadExt = false;
+
+	ClearVram();
+	SetTileTable(tileset);
+	SetSpritesTileTable(tileset);
+
+	cargarPantallaPrincipal();
 
 	personaje.death = 1;
 	for (;;)
@@ -1161,6 +1179,10 @@ int main()
 		{
 			if (contNivel > 0 && contNivel <= 10){
 				kill();
+			} else if (contNivel == 11) {
+				ClearVram();
+				contNivel = 0;
+				cargarPantallaPrincipal();
 			}
 			// circulo
 			// a key
@@ -1216,7 +1238,7 @@ int main()
 
 		if (joy & BTN_UP)
 		{	
-			if (contNivel > 0) {
+			if (contNivel > 0 && contNivel <= 10) {
 				MapSprite2(0, player_up, 0);
 				personaje.plydir = dirPLYUP;
 
@@ -1231,7 +1253,7 @@ int main()
 
 		else if (joy & BTN_DOWN)
 		{
-			if (contNivel > 0) {
+			if (contNivel > 0 && contNivel <= 10) {
 				MapSprite2(0, player_down, 0);
 				personaje.plydir = dirPLYDOWN;
 
@@ -1252,7 +1274,7 @@ int main()
 					dificultadExt = false;
 				}
 			}
-			else if (contNivel > 0) {
+			else if (contNivel > 0 && contNivel <= 10) {
 				MapSprite2(0, player_left, 0);
 				personaje.plydir = dirPLYLEFT;
 
@@ -1273,7 +1295,7 @@ int main()
 					dificultadExt = true;
 				}
 			}
-			else if(contNivel > 0){
+			else if(contNivel > 0 && contNivel <= 10){
 				MapSprite2(0, player_right, 0);
 				personaje.plydir = dirPLYRIGHT;
 
