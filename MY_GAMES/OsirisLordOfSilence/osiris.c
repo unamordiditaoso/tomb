@@ -43,7 +43,7 @@ typedef struct player
 	char plydir;
 } player;
 
-player personaje;
+player osiris;
 
 char contSala;
 char contNivel;
@@ -480,18 +480,27 @@ bool isSolid(char x, char y)
 	} 
 
 	else if (result == 5){
+		if (contNivel == 1) {
+			contSala ++;
+
+			osiris.casillaX = 10;
+			osiris.casillaY = 9;
+
+			return false;
+		}
+
 		if (contNivel == 2) {
 			contSala++;
 
-			personaje.casillaX = 8;
-			personaje.casillaY = 2;
+			osiris.casillaX = 8;
+			osiris.casillaY = 2;
 
 			return false;
 		} else if (contNivel == 3){
 			contSala++;
 
-			personaje.casillaX = 1;
-			personaje.casillaY = 11;
+			osiris.casillaX = 1;
+			osiris.casillaY = 11;
 
 			return false;
 		}
@@ -499,8 +508,8 @@ bool isSolid(char x, char y)
 		else if (contNivel == 4){
 			contSala++;
 
-			personaje.casillaX = 1;
-			personaje.casillaY = 11;
+			osiris.casillaX = 1;
+			osiris.casillaY = 11;
 
 			return false;
 		}
@@ -508,8 +517,8 @@ bool isSolid(char x, char y)
 		else if (contNivel == 5){
 			contSala++;
 
-			personaje.casillaX = 5;
-			personaje.casillaY = 5;
+			osiris.casillaX = 5;
+			osiris.casillaY = 5;
 
 			return false;
 		}
@@ -517,8 +526,8 @@ bool isSolid(char x, char y)
 		else if (contNivel == 6){
 			contSala++;
 
-			personaje.casillaX = 1;
-			personaje.casillaY = 8;
+			osiris.casillaX = 1;
+			osiris.casillaY = 8;
 
 			return false;
 		}
@@ -526,8 +535,8 @@ bool isSolid(char x, char y)
 		else if (contNivel == 7){
 			contSala++;
 
-			personaje.casillaX = 10;
-			personaje.casillaY = 3;
+			osiris.casillaX = 10;
+			osiris.casillaY = 3;
 
 			return false;
 		}
@@ -535,8 +544,8 @@ bool isSolid(char x, char y)
 		else if (contNivel == 8){
 			contSala++;
 
-			personaje.casillaX = 3;
-			personaje.casillaY = 1;
+			osiris.casillaX = 3;
+			osiris.casillaY = 1;
 
 			return false;
 		}
@@ -544,8 +553,8 @@ bool isSolid(char x, char y)
 		else if (contNivel == 9){
 			contSala++;
 
-			personaje.casillaX = 2;
-			personaje.casillaY = 3;
+			osiris.casillaX = 2;
+			osiris.casillaY = 3;
 
 			return false;
 		}
@@ -553,23 +562,28 @@ bool isSolid(char x, char y)
 		else if (contNivel == 10){
 			contSala++;
 
-			personaje.casillaX = 13;
-			personaje.casillaY = 11;
+			osiris.casillaX = 13;
+			osiris.casillaY = 11;
 
 			return false;
-		}
-
-		if (contSala < 2) {
-			moverCamara(true);
 		}
 		return false;
 	} else if (result == 6){
 
+		if (contNivel == 1) {
+			contSala--;
+
+			osiris.casillaX = 5;
+			osiris.casillaY = 1;
+
+			return false;
+		}
+
 		if (contNivel == 2) {
 			contSala--;
 
-			personaje.casillaX = 4;
-			personaje.casillaY = 11;
+			osiris.casillaX = 4;
+			osiris.casillaY = 11;
 
 			return false;
 		}
@@ -577,8 +591,8 @@ bool isSolid(char x, char y)
 		else if (contNivel == 3){
 			contSala--;
 
-			personaje.casillaX = 10;
-			personaje.casillaY = 6;
+			osiris.casillaX = 10;
+			osiris.casillaY = 6;
 
 			return false;
 		}
@@ -586,8 +600,8 @@ bool isSolid(char x, char y)
 		else if (contNivel == 4){
 			contSala--;
 
-			personaje.casillaX = 12;
-			personaje.casillaY = 11;
+			osiris.casillaX = 12;
+			osiris.casillaY = 11;
 
 			return false;
 		}
@@ -595,8 +609,8 @@ bool isSolid(char x, char y)
 		else if (contNivel == 5){
 			contSala--;
 
-			personaje.casillaX = 2;
-			personaje.casillaY = 13;
+			osiris.casillaX = 2;
+			osiris.casillaY = 13;
 
 			return false;
 		}
@@ -604,8 +618,8 @@ bool isSolid(char x, char y)
 		else if (contNivel == 6){
 			contSala--;
 
-			personaje.casillaX = 10;
-			personaje.casillaY = 11;
+			osiris.casillaX = 10;
+			osiris.casillaY = 11;
 
 			return false;
 		}
@@ -613,8 +627,8 @@ bool isSolid(char x, char y)
 		else if (contNivel == 7){
 			contSala--;
 
-			personaje.casillaX = 13;
-			personaje.casillaY = 12;
+			osiris.casillaX = 13;
+			osiris.casillaY = 12;
 
 			return false;
 		}
@@ -622,8 +636,8 @@ bool isSolid(char x, char y)
 		else if (contNivel == 8){
 			contSala--;
 
-			personaje.casillaX = 3;
-			personaje.casillaY = 13;
+			osiris.casillaX = 3;
+			osiris.casillaY = 13;
 
 			return false;
 		}
@@ -631,8 +645,8 @@ bool isSolid(char x, char y)
 		else if (contNivel == 9){
 			contSala--;
 
-			personaje.casillaX = 13;
-			personaje.casillaY = 4;
+			osiris.casillaX = 13;
+			osiris.casillaY = 4;
 
 			return false;
 		}
@@ -640,21 +654,23 @@ bool isSolid(char x, char y)
 		else if (contNivel == 10){
 			contSala--;
 
-			personaje.casillaX = 1;
-			personaje.casillaY = 12;
+			osiris.casillaX = 1;
+			osiris.casillaY = 12;
 
 			return false;
 		}
 
-		moverCamara(false);
 		return false;
 	} else if (result / 3 == 10 ) {
 		if (contNivel == 10){
 			contNivel++;
-			ClearVram();
-			cargarPantallaPrincipal();
+
+			ClearVram();		
 			MapSprite2(0, vacio, 0);
 			MoveSprite(0, -1, -1, 1, 1);
+			WaitVsync(25);
+			cargarPantallaPrincipal();
+			
 		} else if (contNivel < 10){
 			avanzaNivel(true);
 		}
@@ -713,14 +729,14 @@ void avanzaNivel(bool avanza){
 	}
 
 	kill();
-	personaje.death = 0;
+	osiris.death = 0;
 }
 
 void kill() 
 {
 	contSala = 0;
 
-	personaje.death = 1;
+	osiris.death = 1;
 	
 	MapSprite2(0, vacio, 0);
 	MoveSprite(0, -1, -1, 1, 1);
@@ -731,32 +747,32 @@ void kill()
 	DrawMap2(12, 26, level);
 
 	if (contNivel == 1){
-		personaje.POSx = 112;
-		personaje.POSy = 112;
-		personaje.casillaX = 4;
-		personaje.casillaY = 9;
-		personaje.death = 1;
+		osiris.POSx = 112;
+		osiris.POSy = 160;
+		osiris.casillaX = 4;
+		osiris.casillaY = 9;
+		osiris.death = 1;
 
-		cargarMapa(2, 9,-3);
-		cargarMapa(1, 10, 5);
+		cargarMapa(2, 9, 3);
+		cargarMapa(1, 10, 11);
 
 		DrawMap2(17, 26, uno);
 	} else if (contNivel == 2) {
 
-		personaje.POSx = 112;
-		personaje.POSy = 88;
-		personaje.casillaX = 6;
-		personaje.casillaY = 5;
+		osiris.POSx = 112;
+		osiris.POSy = 88;
+		osiris.casillaX = 6;
+		osiris.casillaY = 5;
 
 		cargarMapa(2, 4, 15);
 		cargarMapa(1, 8, 6);
 
 		DrawMap2(17, 26, dos);
 	} else if (contNivel == 3) {
-		personaje.POSx = 56;
-		personaje.POSy = 104;
-		personaje.casillaX = 2;
-		personaje.casillaY = 7;
+		osiris.POSx = 56;
+		osiris.POSy = 104;
+		osiris.casillaX = 2;
+		osiris.casillaY = 7;
 
 		cargarMapa(2, 14, 6);
 		cargarMapa(1, 5, 6);
@@ -765,30 +781,30 @@ void kill()
 		DrawMap2(18, 26, tres);
 	} else if (contNivel == 4) {
 
-		personaje.POSx = 48;
-		personaje.POSy = 136;
-		personaje.casillaX = 4;
-		personaje.casillaY = 11;
+		osiris.POSx = 48;
+		osiris.POSy = 136;
+		osiris.casillaX = 4;
+		osiris.casillaY = 11;
 
 		cargarMapa(2, 13, 6);
 		cargarMapa(1, 2, 6);
 
 		DrawMap2(17, 26, cuatro);
 	} else if (contNivel == 5) {
-		personaje.POSx = 136;
-		personaje.POSy = 112;
-		personaje.casillaX = 9;
-		personaje.casillaY = 12;
+		osiris.POSx = 136;
+		osiris.POSy = 112;
+		osiris.casillaX = 9;
+		osiris.casillaY = 12;
 
 		cargarMapa(2, 8, 10);
 		cargarMapa(1, 8, 2);
 
 		DrawMap2(17, 26, cinco);
 	} else if (contNivel == 6) {
-		personaje.POSx = 48;
-		personaje.POSy = 56;
-		personaje.casillaX = 3;
-		personaje.casillaY = 4;
+		osiris.POSx = 48;
+		osiris.POSy = 56;
+		osiris.casillaX = 3;
+		osiris.casillaY = 4;
 
 		cargarMapa(2, 12, 6);
 		cargarMapa(1, 3, 3);
@@ -796,40 +812,40 @@ void kill()
 
 		DrawMap2(17, 26, seis);
 	} else if (contNivel == 7) {
-		personaje.POSx = 144;
-		personaje.POSy = 24;
-		personaje.casillaX = 10;
-		personaje.casillaY = 3;
+		osiris.POSx = 144;
+		osiris.POSy = 24;
+		osiris.casillaX = 10;
+		osiris.casillaY = 3;
 
 		cargarMapa(2, 11, 9);
 		cargarMapa(1, 8, 0);
 
 		DrawMap2(17, 26, siete);
 	} else if (contNivel == 8) {
-		personaje.POSx = 168;
-		personaje.POSy = 32;
-		personaje.casillaX = 11;
-		personaje.casillaY = 2;
+		osiris.POSx = 168;
+		osiris.POSy = 32;
+		osiris.casillaX = 11;
+		osiris.casillaY = 2;
 
 		cargarMapa(2, 10, 14);
 		cargarMapa(1, 10, 2);
 
 		DrawMap2(17, 26, ocho);
 	} else if (contNivel == 9) {
-		personaje.POSx = 32;
-		personaje.POSy = 144;
-		personaje.casillaX = 2;
-		personaje.casillaY = 12;
+		osiris.POSx = 32;
+		osiris.POSy = 144;
+		osiris.casillaX = 2;
+		osiris.casillaY = 12;
 
 		cargarMapa(2, 13, 6);
 		cargarMapa(1, 2, 6);
 
 		DrawMap2(17, 26, nueve);
 	} else if (contNivel == 10) {
-		personaje.POSx = 208;
-		personaje.POSy = 152;
-		personaje.casillaX = 12;
-		personaje.casillaY = 13;
+		osiris.POSx = 208;
+		osiris.POSy = 152;
+		osiris.casillaX = 12;
+		osiris.casillaY = 13;
 
 		cargarMapa(2, 2, 6);
 		cargarMapa(1, 14, 6);
@@ -840,156 +856,40 @@ void kill()
 	MapSprite2(0, player_right, 0);
 	moveplayer(dirPLYRIGHT, 0);
 	WaitVsync(2);
-	MoveSprite(0, personaje.POSx, personaje.POSy, 1, 1);
-}
-
-void moverCamara(bool avanza) 
-{
-	if (avanza) {
-		contSala++;
-	} else {
-		contSala--;
-	}
-
-	ClearVram();
-	
-	if (contSala == 0) {
-		DrawMap2(12, 26, level);
-
-		if (contNivel == 1){
-			personaje.POSx = 120;
-			personaje.POSy = 48;
-			personaje.casillaX = 5;
-			personaje.casillaY = 1;
-
-			cargarMapa(2, 9,-3);
-			cargarMapa(1, 10, 5);
-
-			DrawMap2(17, 26, uno);
-		} else if (contNivel == 2) {
-			DrawMap2(17, 26, dos);
-		} else if (contNivel == 3) {
-			DrawMap2(17, 26, dos);
-			DrawMap2(18, 26, tres);
-		} else if (contNivel == 4) {
-			DrawMap2(17, 26, cuatro);
-		} else if (contNivel == 5) {
-			DrawMap2(17, 26, cinco);
-		} else if (contNivel == 6) {
-			DrawMap2(17, 26, seis);
-		} else if (contNivel == 7) {
-			DrawMap2(17, 26, siete);
-		} else if (contNivel == 8) {
-			DrawMap2(17, 26, ocho);
-		} else if (contNivel == 9) {
-			DrawMap2(17, 26, nueve);
-		} else if (contNivel == 10) {
-			DrawMap2(17, 26, diez);
-		} 
-	}
-	if (contSala == 1) {
-		DrawMap2(12, 1, level);
-
-		if (contNivel == 1){
-			personaje.POSx = 104;
-			personaje.POSy = 120;
-			personaje.casillaX = 9;
-			personaje.casillaY = 9;
-
-			cargarMapa(2, 4, 6);
-			cargarMapa(1, 5, 14);
-
-			DrawMap2(17, 1, uno);
-		} else if (contNivel == 2) {
-			DrawMap2(17, 1, dos);
-		} else if (contNivel == 3) {
-			DrawMap2(17, 1, dos);
-			DrawMap2(18, 1, tres);
-		} else if (contNivel == 4) {
-			DrawMap2(17, 1, cuatro);
-		} else if (contNivel == 5) {
-			DrawMap2(17, 1, cinco);
-		} else if (contNivel == 6) {
-			DrawMap2(17, 1, seis);
-		} else if (contNivel == 7) {
-			DrawMap2(17, 1, siete);
-		} else if (contNivel == 8) {
-			DrawMap2(17, 1, ocho);
-		} else if (contNivel == 9) {
-			DrawMap2(17, 1, nueve);
-		} else if (contNivel == 10) {
-			DrawMap2(17, 1, diez);
-		}
-	}
-	if (contSala == 2) {
-
-		DrawMap2(12, 1, level);
-
-		if (contNivel == 1){
-			personaje.POSx = 128;
-			personaje.POSy = 96;
-			personaje.casillaX = 8;
-			personaje.casillaY = 5;
-
-			cargarMapa(2, 13, 7);
-			cargarMapa(1, 14, 15);
-
-			DrawMap2(17, 1, uno);
-		} else if (contNivel == 2) {
-			DrawMap2(17, 1, dos);
-		} else if (contNivel == 3) {
-			DrawMap2(17, 1, dos);
-			DrawMap2(18, 1, tres);
-		} else if (contNivel == 4) {
-			DrawMap2(17, 1, cuatro);
-		} else if (contNivel == 5) {
-			DrawMap2(17, 1, cinco);
-		} else if (contNivel == 6) {
-			DrawMap2(17, 1, seis);
-		} else if (contNivel == 7) {
-			DrawMap2(17, 1, siete);
-		} else if (contNivel == 8) {
-			DrawMap2(17, 1, ocho);
-		} else if (contNivel == 9) {
-			DrawMap2(17, 1, nueve);
-		} else if (contNivel == 10) {
-			DrawMap2(17, 1, diez);
-		}
-
-	}
+	MoveSprite(0, osiris.POSx, osiris.POSy, 1, 1);
 }
 
 void moveplayer(char direction, char numPix)
 {
 
-	if (personaje.death == 0)
+	if (osiris.death == 0)
 	{
 		if (numPix == 8)
 		{
-			if (personaje.plydir == dirPLYUP)
+			if (osiris.plydir == dirPLYUP)
 			{
-				personaje.casillaY--;
-				personaje.POSy -= numPix;
+				osiris.casillaY--;
+				osiris.POSy -= numPix;
 			}
-			if (personaje.plydir == dirPLYDOWN)
+			if (osiris.plydir == dirPLYDOWN)
 			{
-				personaje.casillaY++;
-				personaje.POSy += numPix;
+				osiris.casillaY++;
+				osiris.POSy += numPix;
 			}
-			if (personaje.plydir == dirPLYLEFT)
+			if (osiris.plydir == dirPLYLEFT)
 			{
-				personaje.casillaX--;
-				personaje.POSx -= numPix;
+				osiris.casillaX--;
+				osiris.POSx -= numPix;
 			}
-			if (personaje.plydir == dirPLYRIGHT)
+			if (osiris.plydir == dirPLYRIGHT)
 			{
-				personaje.casillaX++;
-				personaje.POSx += numPix;
+				osiris.casillaX++;
+				osiris.POSx += numPix;
 			}
 		}
 
 		WaitVsync(2);
-		MoveSprite(0, personaje.POSx, personaje.POSy, 1, 1);
+		MoveSprite(0, osiris.POSx, osiris.POSy, 1, 1);
 	}
 }
 
@@ -1170,11 +1070,11 @@ int main()
 
 	cargarPantallaPrincipal();
 
-	personaje.death = 1;
+	osiris.death = 1;
 	for (;;)
 	{
-
 		joy = ReadJoypad(0); // Get the latest input from the gamepad.
+
 		if (joy & BTN_A)
 		{
 			if (contNivel > 0 && contNivel <= 10){
@@ -1206,7 +1106,7 @@ int main()
 				avanzaNivel(true);
 			}
 
-			personaje.death = 0;
+			osiris.death = 0;
 			// equis
 			// x key
 		}
@@ -1240,12 +1140,12 @@ int main()
 		{	
 			if (contNivel > 0 && contNivel <= 10) {
 				MapSprite2(0, player_up, 0);
-				personaje.plydir = dirPLYUP;
+				osiris.plydir = dirPLYUP;
 
-				while (!isSolid(personaje.casillaX, personaje.casillaY - 1))
+				while (!isSolid(osiris.casillaX, osiris.casillaY - 1))
 				{
-					if (personaje.death == 1) {break;}
-					moveplayer(personaje.plydir, 8);
+					if (osiris.death == 1) {break;}
+					moveplayer(osiris.plydir, 8);
 				};
 			}
 			
@@ -1255,12 +1155,12 @@ int main()
 		{
 			if (contNivel > 0 && contNivel <= 10) {
 				MapSprite2(0, player_down, 0);
-				personaje.plydir = dirPLYDOWN;
+				osiris.plydir = dirPLYDOWN;
 
-				while (!isSolid(personaje.casillaX, personaje.casillaY + 1))
+				while (!isSolid(osiris.casillaX, osiris.casillaY + 1))
 				{
-					if (personaje.death == 1) {break;}
-					moveplayer(personaje.plydir, 8);
+					if (osiris.death == 1) {break;}
+					moveplayer(osiris.plydir, 8);
 				};
 			}
 			
@@ -1276,12 +1176,12 @@ int main()
 			}
 			else if (contNivel > 0 && contNivel <= 10) {
 				MapSprite2(0, player_left, 0);
-				personaje.plydir = dirPLYLEFT;
+				osiris.plydir = dirPLYLEFT;
 
-				while (!isSolid(personaje.casillaX - 1, personaje.casillaY))
+				while (!isSolid(osiris.casillaX - 1, osiris.casillaY))
 				{
-					if (personaje.death == 1) {break;}
-					moveplayer(personaje.plydir, 8);
+					if (osiris.death == 1) {break;}
+					moveplayer(osiris.plydir, 8);
 				};
 			}
 			
@@ -1297,12 +1197,12 @@ int main()
 			}
 			else if(contNivel > 0 && contNivel <= 10){
 				MapSprite2(0, player_right, 0);
-				personaje.plydir = dirPLYRIGHT;
+				osiris.plydir = dirPLYRIGHT;
 
-				while (!isSolid(personaje.casillaX + 1, personaje.casillaY))
+				while (!isSolid(osiris.casillaX + 1, osiris.casillaY))
 				{
-					if (personaje.death == 1) {break;}
-					moveplayer(personaje.plydir, 8);
+					if (osiris.death == 1) {break;}
+					moveplayer(osiris.plydir, 8);
 				};
 			}
 			

@@ -1,10 +1,10 @@
 ###############################################################################
-# Makefile for Laser Puzzle
+# Makefile for Osiris Lord of Silence
 ###############################################################################
 
 ## General Flags
-PROJECT = Laser
-GAME= laser
+PROJECT = OsirisLordOfSilence
+GAME= osiris
 MCU = atmega644
 TARGET = $(GAME).elf
 CC = avr-gcc
@@ -19,7 +19,7 @@ AVRDUDE = avrdude $(PROGRAMMER) -p $(MCU)
 KERNEL_DIR = ../../../kernel
 KERNEL_OPTIONS  = -DVIDEO_MODE=3 -DINTRO_LOGO=1 -DSCROLLING=0 -DSOUND_MIXER=1 -DSOUND_CHANNEL_5_ENABLE=1
 KERNEL_OPTIONS += -DMAX_SPRITES=21 -DRAM_TILES_COUNT=33 -DSCREEN_TILES_V=28
-KERNEL_OPTIONS += -DOVERLAY_LINES=0 -DTRANSLUCENT_COLOR=0x1C
+KERNEL_OPTIONS += -DOVERLAY_LINES=0
 
 # Only necessary if scrolling is enabled
 #KERNEL_OPTIONS += -DVRAM_TILES_V=32
