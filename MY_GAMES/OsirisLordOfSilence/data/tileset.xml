@@ -8,7 +8,9 @@
       
       <map var-name="trampa_up" left="2" top="0" width="1" height="1" />
       <map var-name="trampa_down" left="3" top="1" width="1" height="1" />
-      
+      <map var-name="trampa_right" left="3" top="0" width="1" height="1" />
+      <map var-name="trampa_left" left="2" top="1" width="1" height="1" />
+
       <map var-name="player_up" left="4" top="1" width="1" height="1" />
       <map var-name="player_down" left="5" top="1" width="1" height="1" />
       <map var-name="player_right" left="5" top="0" width="1" height="1" />
@@ -50,6 +52,8 @@
       
       <map var-name="victoriaD" left="6" top="0" width="1" height="1" />
       <map var-name="victoriaI" left="7" top="0" width="1" height="1" />
+      <map var-name="victoriaN" left="6" top="1" width="1" height="1" />
+      <map var-name="victoriaS" left="7" top="1" width="1" height="1" />
     
       <map var-name="piramideI" left="6" top="2" width="4" height="2" />
       <map var-name="piramideD" left="12" top="2" width="2" height="2" /> 
