@@ -6,6 +6,9 @@
 #include <avr/pgmspace.h>
 #include <uzebox.h>
 
+#include "data/patches.inc"
+#include "data/midisong.h"
+#include "data/osirisfinal.h"
 #include "data/tileset.inc"
 
 #define BTN_SR 2048
@@ -667,6 +670,8 @@ bool isSolid(char x, char y)
 
 		return false;
 	} else if (result / 10 == 3 ) {
+		TriggerFx(6, 0x40, true);
+
 		if (contNivel == 10){
 			contNivel++;
 
@@ -681,6 +686,8 @@ bool isSolid(char x, char y)
 		}
 		return true;
 	} else if (result / 10 == 4) {
+		TriggerFx(5, 0x40, true);
+
 		if (dificultadExt) {
 			contNivel = 0;
 			avanzaNivel(true);
@@ -688,8 +695,12 @@ bool isSolid(char x, char y)
 		else {
 			kill();
 		}
+		return true;
 	}
-	
+	if(!osiris.death){
+		TriggerFx(1, 0x60, false);
+	}
+
 	return true;
 }
 
@@ -1071,8 +1082,17 @@ void cargarPantallaPrincipal() {
 
 	if (contNivel == 0) {
 		DrawMap2((SCREEN_TILES_H - PRESSX_WIDTH)/2, (SCREEN_TILES_V - PRESSX_HEIGHT)/2 + 10, pressX);
+
+		WaitVsync(20);
+
+		StartSong(midisong);
+
 	} else if (contNivel == 11) {
 		DrawMap2(23, 19, bandera);
+
+		WaitVsync(20);
+
+		StartSong(osirisfinal);
 	}
 }
 
@@ -1084,6 +1104,7 @@ int main()
 	ClearVram();
 	SetTileTable(tileset);
 	SetSpritesTileTable(tileset);
+ 	InitMusicPlayer(patches);
 
 	cargarPantallaPrincipal();
 
@@ -1097,6 +1118,7 @@ int main()
 			if (contNivel > 0 && contNivel <= 10){
 				kill();
 			} else if (contNivel == 11) {
+				TriggerFx(2, 0xff, true);
 				ClearVram();
 				contNivel = 0;
 				cargarPantallaPrincipal();
@@ -1120,6 +1142,9 @@ int main()
 		if (joy & BTN_X)
 		{
 			if (contNivel == 0) {
+				StopSong();
+				WaitVsync(20);
+				TriggerFx(2, 0x2F, true);
 				avanzaNivel(true);
 			}
 
@@ -1148,6 +1173,11 @@ int main()
 
 		if (joy & BTN_START)
 		{
+			if (contNivel == 0) {
+				StopSong();
+				WaitVsync(20);
+				TriggerFx(2, 0x2F, true);
+			}
 			if(contNivel < 10){
 				avanzaNivel(true);
 			}
@@ -1180,13 +1210,13 @@ int main()
 					moveplayer(osiris.plydir, 8);
 				};
 			}
-			
 		}
 
 		else if (joy & BTN_LEFT)
 		{
 			if (contNivel == 0) {
 				if (dificultadExt){
+					TriggerFx(1, 0x80, false);
 					DrawMap2(15, 2, piramidePuntaAmarilla);
 					dificultadExt = false;
 				}
@@ -1199,7 +1229,7 @@ int main()
 				{
 					if (osiris.death == 1) {break;}
 					moveplayer(osiris.plydir, 8);
-				};
+				};				
 			}
 			
 		}
@@ -1208,6 +1238,7 @@ int main()
 		{
 			if (contNivel == 0) {
 				if (!dificultadExt){
+					TriggerFx(1, 0x80, false);
 					DrawMap2(15, 2, piramidePuntaRoja);
 					dificultadExt = true;
 				}
